@@ -3,7 +3,7 @@ extends Node2D
 export (int) var board_width = 8
 export (int) var board_height = 8
 var padding = 20
-var gem_scene = preload("res://Scenes/Gem.tscn")
+var gem_scene = preload("res://Prototypes/OneDimensional/Scenes/Gem.tscn")
 var board = []
 func _ready():
 	setup_board()

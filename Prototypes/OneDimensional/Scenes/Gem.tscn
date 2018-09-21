@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Prototypes/OneDimensional/Scripts/Gem.gd" type="Script" id=1]
+
+[node name="Gem" type="Node2D"]
+
+position = Vector2( 490.954, 292.899 )
+script = ExtResource( 1 )
+symbol = 1
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+

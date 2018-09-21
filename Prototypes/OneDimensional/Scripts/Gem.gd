@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 #should be class level, how do you make this static in GDSCRIPT?
 enum Symbols {
@@ -24,6 +24,7 @@ var board_index
 var size = 64
 
 func _ready():
+	rect_min_size = Vector2(size,size)
 	if not $Sprite.texture:
 		var placeholder_img = Image.new()
 		placeholder_img.create(size,size,false, Image.FORMAT_RGBAH)
