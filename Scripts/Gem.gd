@@ -19,17 +19,25 @@ var symbol_colors = {
 }
 	
 
-var symbol = Symbols.CIRCLE
+var symbol = Symbols.SQUARE
 var board_index
 var size = 32
 
 func _ready():
 	rect_min_size = Vector2(size,size)
 	if not $Sprite.texture:
-		var placeholder_img = Image.new()
-		placeholder_img.create(size,size,false, Image.FORMAT_RGBAH)
-		placeholder_img.fill(symbol_colors[symbol])
-		var placeholder_texture = ImageTexture.new()
-		
-		placeholder_texture.create_from_image(placeholder_img)
-		$Sprite.texture = placeholder_texture
+		set_texture_to_placeholder()
+
+func set_symbol(new_symbol):
+	symbol = new_symbol
+	set_texture_to_placeholder()
+	
+	
+func set_texture_to_placeholder():
+	var placeholder_img = Image.new()
+	placeholder_img.create(size,size,false, Image.FORMAT_RGBAH)
+	placeholder_img.fill(symbol_colors[symbol])
+	var placeholder_texture = ImageTexture.new()
+	
+	placeholder_texture.create_from_image(placeholder_img)
+	$Sprite.texture = placeholder_texture

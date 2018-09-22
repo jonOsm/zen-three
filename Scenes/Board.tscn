@@ -1,13 +1,17 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Board.gd" type="Script" id=1]
 
 [node name="Board" type="GridContainer"]
 
 anchor_left = 0.5
-anchor_top = 0.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-margin_top = 127.0
-margin_bottom = -86.0
+anchor_bottom = 0.5
+margin_left = -87.5
+margin_top = -143.5
+margin_right = 87.5
+margin_bottom = 143.5
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -17,6 +21,9 @@ size_flags_vertical = 1
 custom_constants/vseparation = 10
 custom_constants/hseparation = 10
 columns = 8
+script = ExtResource( 1 )
 _sections_unfolded = [ "Anchor", "Margin", "Rect", "custom_constants" ]
+board_width = 8
+board_height = 8
 
 
