@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Prototypes/OneDimensional/Scripts/Gem.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Gem.gd" type="Script" id=1]
 
 [node name="Gem" type="Control"]
 
@@ -18,7 +18,6 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
 _sections_unfolded = [ "Rect", "Transform" ]
-symbol = 1
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 

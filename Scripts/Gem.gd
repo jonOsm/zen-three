@@ -17,11 +17,11 @@ var symbol_colors = {
 	Symbols.STAR:Color(1,1,0),
 	Symbols.CIRCLE: Color(.75,1,1)
 }
+	
 
-
-export (Symbols) var symbol = Symbols.TRIANGLE
+var symbol = Symbols.CIRCLE
 var board_index
-var size = 64
+var size = 32
 
 func _ready():
 	rect_min_size = Vector2(size,size)
@@ -30,6 +30,6 @@ func _ready():
 		placeholder_img.create(size,size,false, Image.FORMAT_RGBAH)
 		placeholder_img.fill(symbol_colors[symbol])
 		var placeholder_texture = ImageTexture.new()
-
+		
 		placeholder_texture.create_from_image(placeholder_img)
 		$Sprite.texture = placeholder_texture

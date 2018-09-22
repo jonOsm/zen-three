@@ -1,5 +1,344 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
 
-[node name="ZenMode" type="Node2D"]
+[ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Socket.tscn" type="PackedScene" id=2]
+
+[node name="ZenMode" type="Node2D" index="0"]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="Camera2D" type="Camera2D" parent="." index="0"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 2, 2 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="1"]
+
+editor/display_folded = true
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" index="0"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+use_top_left = false
+
+[node name="Board" parent="CanvasLayer/CenterContainer" index="0" instance=ExtResource( 1 )]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 477.0
+margin_top = 275.0
+margin_right = 547.0
+margin_bottom = 325.0
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Mouse", "Rect", "Size Flags", "custom_constants" ]
+
+[node name="Socket" parent="CanvasLayer/CenterContainer/Board" index="0" instance=ExtResource( 2 )]
+
+[node name="Socket2" parent="CanvasLayer/CenterContainer/Board" index="1" instance=ExtResource( 2 )]
+
+margin_left = 10.0
+margin_right = 10.0
+
+[node name="Socket3" parent="CanvasLayer/CenterContainer/Board" index="2" instance=ExtResource( 2 )]
+
+margin_left = 20.0
+margin_right = 20.0
+
+[node name="Socket4" parent="CanvasLayer/CenterContainer/Board" index="3" instance=ExtResource( 2 )]
+
+margin_left = 30.0
+margin_right = 30.0
+
+[node name="Socket5" parent="CanvasLayer/CenterContainer/Board" index="4" instance=ExtResource( 2 )]
+
+margin_left = 40.0
+margin_right = 40.0
+
+[node name="Socket6" parent="CanvasLayer/CenterContainer/Board" index="5" instance=ExtResource( 2 )]
+
+margin_left = 50.0
+margin_right = 50.0
+
+[node name="Socket7" parent="CanvasLayer/CenterContainer/Board" index="6" instance=ExtResource( 2 )]
+
+margin_left = 60.0
+margin_right = 60.0
+
+[node name="Socket8" parent="CanvasLayer/CenterContainer/Board" index="7" instance=ExtResource( 2 )]
+
+margin_left = 70.0
+margin_right = 70.0
+
+[node name="Socket9" parent="CanvasLayer/CenterContainer/Board" index="8" instance=ExtResource( 2 )]
+
+margin_top = 10.0
+margin_bottom = 10.0
+
+[node name="Socket10" parent="CanvasLayer/CenterContainer/Board" index="9" instance=ExtResource( 2 )]
+
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 10.0
+
+[node name="Socket11" parent="CanvasLayer/CenterContainer/Board" index="10" instance=ExtResource( 2 )]
+
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+
+[node name="Socket12" parent="CanvasLayer/CenterContainer/Board" index="11" instance=ExtResource( 2 )]
+
+margin_left = 30.0
+margin_top = 10.0
+margin_right = 30.0
+margin_bottom = 10.0
+
+[node name="Socket13" parent="CanvasLayer/CenterContainer/Board" index="12" instance=ExtResource( 2 )]
+
+margin_left = 40.0
+margin_top = 10.0
+margin_right = 40.0
+margin_bottom = 10.0
+
+[node name="Socket14" parent="CanvasLayer/CenterContainer/Board" index="13" instance=ExtResource( 2 )]
+
+margin_left = 50.0
+margin_top = 10.0
+margin_right = 50.0
+margin_bottom = 10.0
+
+[node name="Socket15" parent="CanvasLayer/CenterContainer/Board" index="14" instance=ExtResource( 2 )]
+
+margin_left = 60.0
+margin_top = 10.0
+margin_right = 60.0
+margin_bottom = 10.0
+
+[node name="Socket16" parent="CanvasLayer/CenterContainer/Board" index="15" instance=ExtResource( 2 )]
+
+margin_left = 70.0
+margin_top = 10.0
+margin_right = 70.0
+margin_bottom = 10.0
+
+[node name="Socket17" parent="CanvasLayer/CenterContainer/Board" index="16" instance=ExtResource( 2 )]
+
+margin_top = 20.0
+margin_bottom = 20.0
+
+[node name="Socket18" parent="CanvasLayer/CenterContainer/Board" index="17" instance=ExtResource( 2 )]
+
+margin_left = 10.0
+margin_top = 20.0
+margin_right = 10.0
+margin_bottom = 20.0
+
+[node name="Socket19" parent="CanvasLayer/CenterContainer/Board" index="18" instance=ExtResource( 2 )]
+
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="Socket20" parent="CanvasLayer/CenterContainer/Board" index="19" instance=ExtResource( 2 )]
+
+margin_left = 30.0
+margin_top = 20.0
+margin_right = 30.0
+margin_bottom = 20.0
+
+[node name="Socket21" parent="CanvasLayer/CenterContainer/Board" index="20" instance=ExtResource( 2 )]
+
+margin_left = 40.0
+margin_top = 20.0
+margin_right = 40.0
+margin_bottom = 20.0
+
+[node name="Socket22" parent="CanvasLayer/CenterContainer/Board" index="21" instance=ExtResource( 2 )]
+
+margin_left = 50.0
+margin_top = 20.0
+margin_right = 50.0
+margin_bottom = 20.0
+
+[node name="Socket23" parent="CanvasLayer/CenterContainer/Board" index="22" instance=ExtResource( 2 )]
+
+margin_left = 60.0
+margin_top = 20.0
+margin_right = 60.0
+margin_bottom = 20.0
+
+[node name="Socket24" parent="CanvasLayer/CenterContainer/Board" index="23" instance=ExtResource( 2 )]
+
+margin_left = 70.0
+margin_top = 20.0
+margin_right = 70.0
+margin_bottom = 20.0
+
+[node name="Socket25" parent="CanvasLayer/CenterContainer/Board" index="24" instance=ExtResource( 2 )]
+
+margin_top = 30.0
+margin_bottom = 30.0
+
+[node name="Socket26" parent="CanvasLayer/CenterContainer/Board" index="25" instance=ExtResource( 2 )]
+
+margin_left = 10.0
+margin_top = 30.0
+margin_right = 10.0
+margin_bottom = 30.0
+
+[node name="Socket27" parent="CanvasLayer/CenterContainer/Board" index="26" instance=ExtResource( 2 )]
+
+margin_left = 20.0
+margin_top = 30.0
+margin_right = 20.0
+margin_bottom = 30.0
+
+[node name="Socket28" parent="CanvasLayer/CenterContainer/Board" index="27" instance=ExtResource( 2 )]
+
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 30.0
+margin_bottom = 30.0
+
+[node name="Socket29" parent="CanvasLayer/CenterContainer/Board" index="28" instance=ExtResource( 2 )]
+
+margin_left = 40.0
+margin_top = 30.0
+margin_right = 40.0
+margin_bottom = 30.0
+
+[node name="Socket30" parent="CanvasLayer/CenterContainer/Board" index="29" instance=ExtResource( 2 )]
+
+margin_left = 50.0
+margin_top = 30.0
+margin_right = 50.0
+margin_bottom = 30.0
+
+[node name="Socket31" parent="CanvasLayer/CenterContainer/Board" index="30" instance=ExtResource( 2 )]
+
+margin_left = 60.0
+margin_top = 30.0
+margin_right = 60.0
+margin_bottom = 30.0
+
+[node name="Socket32" parent="CanvasLayer/CenterContainer/Board" index="31" instance=ExtResource( 2 )]
+
+margin_left = 70.0
+margin_top = 30.0
+margin_right = 70.0
+margin_bottom = 30.0
+
+[node name="Socket33" parent="CanvasLayer/CenterContainer/Board" index="32" instance=ExtResource( 2 )]
+
+margin_top = 40.0
+margin_bottom = 40.0
+
+[node name="Socket34" parent="CanvasLayer/CenterContainer/Board" index="33" instance=ExtResource( 2 )]
+
+margin_left = 10.0
+margin_top = 40.0
+margin_right = 10.0
+margin_bottom = 40.0
+
+[node name="Socket35" parent="CanvasLayer/CenterContainer/Board" index="34" instance=ExtResource( 2 )]
+
+margin_left = 20.0
+margin_top = 40.0
+margin_right = 20.0
+margin_bottom = 40.0
+
+[node name="Socket36" parent="CanvasLayer/CenterContainer/Board" index="35" instance=ExtResource( 2 )]
+
+margin_left = 30.0
+margin_top = 40.0
+margin_right = 30.0
+margin_bottom = 40.0
+
+[node name="Socket37" parent="CanvasLayer/CenterContainer/Board" index="36" instance=ExtResource( 2 )]
+
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Socket38" parent="CanvasLayer/CenterContainer/Board" index="37" instance=ExtResource( 2 )]
+
+margin_left = 50.0
+margin_top = 40.0
+margin_right = 50.0
+margin_bottom = 40.0
+
+[node name="Socket39" parent="CanvasLayer/CenterContainer/Board" index="38" instance=ExtResource( 2 )]
+
+margin_left = 60.0
+margin_top = 40.0
+margin_right = 60.0
+margin_bottom = 40.0
+
+[node name="Socket40" parent="CanvasLayer/CenterContainer/Board" index="39" instance=ExtResource( 2 )]
+
+margin_left = 70.0
+margin_top = 40.0
+margin_right = 70.0
+margin_bottom = 40.0
+
+[node name="Socket41" parent="CanvasLayer/CenterContainer/Board" index="40" instance=ExtResource( 2 )]
+
+margin_top = 50.0
+margin_bottom = 50.0
+
+[node name="Socket42" parent="CanvasLayer/CenterContainer/Board" index="41" instance=ExtResource( 2 )]
+
+margin_left = 10.0
+margin_top = 50.0
+margin_right = 10.0
+margin_bottom = 50.0
+
+[node name="Socket43" parent="CanvasLayer/CenterContainer/Board" index="42" instance=ExtResource( 2 )]
+
+margin_left = 20.0
+margin_top = 50.0
+margin_right = 20.0
+margin_bottom = 50.0
 
 
