@@ -20,7 +20,6 @@ var symbol_colors = {
 	
 
 var symbol = Symbols.SQUARE
-var board_index
 var size = 32
 
 func _ready():

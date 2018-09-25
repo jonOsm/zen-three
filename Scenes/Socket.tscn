@@ -22,6 +22,8 @@ __meta__ = {
 "_edit_group_": true
 }
 size = Vector2( 32, 32 )
+debugging = true
+swap_back_delay = 0.5
 
 [node name="Gem" parent="." index="0" instance=ExtResource( 2 )]
 

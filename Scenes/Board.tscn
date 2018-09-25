@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Board.gd" type="Script" id=1]
 
-[node name="Board" type="GridContainer" index="0"]
+[node name="Board" type="GridContainer"]
 
 anchor_left = 0.5
 anchor_top = 0.5
