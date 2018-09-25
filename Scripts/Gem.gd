@@ -21,11 +21,17 @@ var symbol_colors = {
 
 var symbol = Symbols.SQUARE
 var size = 32
+signal gem_animation_complete
+signal gem_animation_started
+signal gem_destruction_complete
 
 func _ready():
 	rect_min_size = Vector2(size,size)
+	#$Sprite.offset = Vector2(size/2, size/2)
+	
 	if not $Sprite.texture:
 		set_texture_to_placeholder()
+	$AnimationPlayer.play("Placeholder_Generate")
 
 func set_symbol(new_symbol):
 	symbol = new_symbol
@@ -40,3 +46,12 @@ func set_texture_to_placeholder():
 	
 	placeholder_texture.create_from_image(placeholder_img)
 	$Sprite.texture = placeholder_texture
+func destroy():
+	$AnimationPlayer.play("Placeholder_Destroy")
+	yield(get_node("AnimationPlayer"), "animation_finished")
+	queue_free()
+	
+func _animation_started():
+	emit_signal("gem_animation_started", true)
+func _animation_complete():
+	emit_signal("gem_animation_complete", false)

@@ -1,11 +1,12 @@
 extends Control
 
 export (Vector2) var size = Vector2(64,64)
-var swipe_speed_threshold = 25
+var swipe_speed_threshold = 70
 var grid_index
 var current_board
 var gem_preload = preload("res://Scenes/Gem.tscn")
 var gem
+var is_animating
 enum Swap_Direction {
 	UP,
 	RIGHT,
@@ -17,14 +18,13 @@ export (bool) var debugging = true
 export (float) var swap_back_delay = 0.5
 
 func _ready():
-	gem = get_node("Gem")
 	rect_min_size = size
 	rect_size = size
-	$Gem.rect_min_size = size
-	$Gem.set_symbol(randi() % $Gem.Symbols.size())
+	generate_gem()
 	current_board.connect("refill_sockets",self, "generate_gem")
 	
 	if debugging:
+		
 		var index_label = Label.new()
 		index_label.text = str(grid_index)
 		index_label.align = HALIGN_CENTER
@@ -33,19 +33,19 @@ func _ready():
 		add_child(index_label)
 
 func generate_gem():
-	print(get_child(0).name)
-	if not find_node("Gem"):
-		print("generate_gem called on socket: " + str(grid_index))
-		var new_gem = gem_preload.instance()
-		new_gem.rect_min_size = size
-		new_gem.set_symbol(randi() % new_gem.Symbols.size())
-		new_gem.set_name("Gem")
-		add_child(new_gem, true)
+	#print(get_child(0).name)
+	if not gem:
+		gem = gem_preload.instance()
+		gem.rect_min_size = size
+		gem.set_symbol(randi() % gem.Symbols.size())
+		gem.connect("gem_animation_complete", self, "set_is_animating")
+		gem.connect("gem_animation_started", self, "set_is_animating")
+		add_child(gem, true)
 		
-		
+func set_is_animating(value):
+	is_animating = value
 		
 func _gui_input(event):
-	#print(event.as_text())
 	if Game.current_gamestate == Game.GameState.RESOLVING_MATCHES or Game.current_gamestate == Game.GameState.LOCKED:
 		return
 		
@@ -57,7 +57,6 @@ func _gui_input(event):
 	
 	#might need to move this into mouse drag event below
 	if event is InputEventMouseButton and event.is_action_released("left_click") and event.button_index == BUTTON_LEFT:
-		print("changing gamestate to IDLE")
 		Game.current_gamestate = Game.GameState.IDLE
 		
 	if event is InputEventMouseMotion and event.button_mask == BUTTON_MASK_LEFT and Game.current_gamestate == Game.GameState.GEM_TOUCHED:
