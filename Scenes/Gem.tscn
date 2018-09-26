@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Gem.gd" type="Script" id=1]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 
 resource_name = "Placeholder_Destroy"
 length = 0.5
@@ -21,9 +21,8 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=2]
 
-resource_name = "Placeholder_Generate"
 length = 1.0
 loop = false
 step = 0.1
@@ -57,16 +56,15 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Gem" type="Control"]
+[node name="Gem" type="Control" index="0"]
 
-editor/display_folded = true
 show_behind_parent = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 64.0
-margin_bottom = 64.0
+margin_right = 32.0
+margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -74,10 +72,11 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Mouse", "Transform", "Visibility" ]
+_sections_unfolded = [ "Mouse", "Rect", "Transform", "Visibility" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
+scale = Vector2( 1e-005, 1e-005 )
 centered = false
 _sections_unfolded = [ "Offset", "Transform" ]
 
@@ -88,8 +87,8 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Placeholder_Destroy = SubResource( 2 )
-anims/Placeholder_Generate = SubResource( 1 )
+anims/Placeholder_Destroy = SubResource( 1 )
+anims/Placeholder_Generate = SubResource( 2 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 

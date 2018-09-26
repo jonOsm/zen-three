@@ -26,7 +26,7 @@ signal gem_animation_started
 signal gem_destruction_complete
 
 func _ready():
-	rect_min_size = Vector2(size,size)
+	rect_min_size = Vector2(0,0)
 	#$Sprite.offset = Vector2(size/2, size/2)
 	
 	if not $Sprite.texture:

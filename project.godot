@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="ZenThree"
-run/main_scene="res://Scenes/ZenMode.tscn"
+run/main_scene="res://Scenes/Start.tscn"
 config/icon="res://icon.png"
 
 [autoload]

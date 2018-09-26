@@ -21,7 +21,7 @@ __meta__ = {
 "_edit_group_": true
 }
 size = Vector2( 32, 32 )
-debugging = true
+debugging = false
 swap_back_delay = 0.5
 
 

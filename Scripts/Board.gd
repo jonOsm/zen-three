@@ -11,7 +11,6 @@ var gem = preload("res://Scenes/Gem.tscn")
 var queued_matches = []
 var newly_generated = []
 var generation_timer = 0
-var gems_still_animating = 0
 signal refill_sockets
 signal match_resolved
 func _ready():
@@ -20,8 +19,6 @@ func _ready():
 	
 	regenerate_board()
 
-
-	
 func regenerate_board():
 	if get_child_count() > 0:
 		for socket in get_children():
@@ -52,26 +49,26 @@ func _process(delta):
 			generation_timer+=delta
 		else:
 			generation_timer = 0
+			for socket in get_children():
+				if socket.status == socket.Socket_Status.GENERATION_QUEUED:
+					socket.generate_gem()
 			Game.current_gamestate = Game.GameState.CHECKING_NEWLY_GENERATED
+			
 		for m in queued_matches:
 			handle_match(m)
-			emit_signal("match_resolved", m.size())
+			emit_signal("match_resolved", m.size()) #used in zen mode script to increase score
 		queued_matches = []
 		
-
-func gems_still_animating():
-	for socket in get_children():
-		if socket.is_animating:
-			return true
-	return false	
-	
+#TODO: DON'T HAVE BOARD TALK DIRECTLY TO GEM, GO THROUGH SOCKET
 func handle_match(the_match):
 	var all_sockets = get_children()
 	for socket_index in the_match:
-		if all_sockets[socket_index].gem:
-			all_sockets[socket_index].gem.destroy()
-			all_sockets[socket_index].gem = null
-			all_sockets[socket_index].generate_gem()
+		var socket = all_sockets[socket_index]
+		if socket.gem:
+			socket.status = socket.Socket_Status.GENERATION_QUEUED
+			socket.gem.destroy()
+			socket.gem = null
+			#socket.generate_gem()
 	
 			
 

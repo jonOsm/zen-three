@@ -1,12 +1,22 @@
 extends Control
 
+enum Socket_Status {
+	AWAITING_INPUT,
+	GENERATION_QUEUED,
+	#GENERATING,
+	DESTRUCTION_QUEUED,
+	#DESTROYING
+}
+
 export (Vector2) var size = Vector2(64,64)
 var swipe_speed_threshold = 70
 var grid_index
 var current_board
 var gem_preload = preload("res://Scenes/Gem.tscn")
 var gem
+var status = Socket_Status.AWAITING_INPUT
 var is_animating
+
 enum Swap_Direction {
 	UP,
 	RIGHT,
@@ -14,7 +24,7 @@ enum Swap_Direction {
 	LEFT,
 	NONE
 }
-export (bool) var debugging = true
+export (bool) var debugging = false
 export (float) var swap_back_delay = 0.5
 
 func _ready():
@@ -36,7 +46,8 @@ func generate_gem():
 	#print(get_child(0).name)
 	if not gem:
 		gem = gem_preload.instance()
-		gem.rect_min_size = size
+		gem.rect_min_size = Vector2(0,0)
+		gem.rect_size = Vector2(0,0)
 		gem.set_symbol(randi() % gem.Symbols.size())
 		gem.connect("gem_animation_complete", self, "set_is_animating")
 		gem.connect("gem_animation_started", self, "set_is_animating")
