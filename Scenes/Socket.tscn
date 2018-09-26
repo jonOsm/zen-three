@@ -20,7 +20,7 @@ _sections_unfolded = [ "Mouse", "Rect" ]
 __meta__ = {
 "_edit_group_": true
 }
-size = Vector2( 32, 32 )
+size = Vector2( 96, 96 )
 debugging = false
 swap_back_delay = 0.5
 

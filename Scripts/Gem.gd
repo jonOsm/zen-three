@@ -20,7 +20,7 @@ var symbol_colors = {
 	
 
 var symbol = Symbols.SQUARE
-var size = 32
+var size = 96
 signal gem_animation_complete
 signal gem_animation_started
 signal gem_destruction_complete

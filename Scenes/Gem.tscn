@@ -56,7 +56,7 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Gem" type="Control" index="0"]
+[node name="Gem" type="Control"]
 
 show_behind_parent = true
 anchor_left = 0.0
