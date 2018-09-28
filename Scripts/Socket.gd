@@ -84,57 +84,49 @@ func is_screen_dragging_or_mouse_moving(e):
 	return is_mouse_moving or is_screen_dragging
 	
 func _gui_input(event):
-	
-	if Game.current_gamestate == Game.GameState.RESOLVING_MATCHES or Game.current_gamestate == Game.GameState.LOCKED:
-		return
-		
-	if is_touch_or_click_pressed(event):
-		Game.current_gamestate = Game.GameState.GEM_TOUCHED
-	if is_touch_or_click_released(event):
-		
-		Game.current_gamestate = Game.GameState.IDLE
 
+	var idle = Game.current_gamestate == Game.GameState.IDLE
 		
-	if is_screen_dragging_or_mouse_moving(event) and Game.current_gamestate == Game.GameState.GEM_TOUCHED:
-		
-	
-#		print(str(event.position))
-#		DEBUG_LABEL.set_text(current_board.detect_swap(event.position))
+	if is_screen_dragging_or_mouse_moving(event) and idle:# and Game.current_gamestate == Game.GameState.GEM_TOUCHED:
+
 		var direction = determine_swipe_direction(event.position)
 		var target_index = find_swap_target_index(direction)
+		
 		if (target_index > -1):
-
-
+			current_board.swap_start_socket = grid_index
+			current_board.swap_end_socket = target_index
+			current_board.play_state = current_board.SWAPPING
+			
 			#swap ownership of gem
-			var target_socket = current_board.get_children()[target_index]
-			var gem_at_target = target_socket.gem
-			var gem_here = gem
-			remove_child(gem)
-			target_socket.remove_child(target_socket.gem)
-			add_child(gem_at_target)
-			target_socket.add_child(gem_here)
-			target_socket.gem = gem
-			gem = gem_at_target
+#			var target_socket = current_board.get_children()[target_index]
+#			var gem_at_target = target_socket.gem
+#			var gem_here = gem
+#			remove_child(gem)
+#			target_socket.remove_child(target_socket.gem)
+#			add_child(gem_at_target)
+#			target_socket.add_child(gem_here)
+#			target_socket.gem = gem
+#			gem = gem_at_target
 
 			Game.current_gamestate = Game.GameState.SWAPPING
 
 			#check for match
-			var match_found = current_board.queue_matches(grid_index, target_index)
-			if match_found:
-				Game.current_gamestate = Game.GameState.RESOLVING_MATCHES
-			else:
-				Game.current_gamestate = Game.GameState.LOCKED
-				yield(get_tree().create_timer(swap_back_delay), "timeout")
-				target_socket = current_board.get_children()[target_index]
-				gem_at_target = target_socket.gem
-				gem_here = gem
-				remove_child(gem)
-				target_socket.remove_child(target_socket.gem)
-				add_child(gem_at_target)
-				target_socket.add_child(gem_here)
-				target_socket.gem = gem
-				gem = gem_at_target
-				Game.current_gamestate = Game.GameState.IDLE
+#			var match_found = current_board.queue_matches(grid_index, target_index)
+#			if match_found:
+#				Game.current_gamestate = Game.GameState.RESOLVING_MATCHES
+#			else:
+#				Game.current_gamestate = Game.GameState.LOCKED
+#				yield(get_tree().create_timer(swap_back_delay), "timeout")
+#				target_socket = current_board.get_children()[target_index]
+#				gem_at_target = target_socket.gem
+#				gem_here = gem
+#				remove_child(gem)
+#				target_socket.remove_child(target_socket.gem)
+#				add_child(gem_at_target)
+#				target_socket.add_child(gem_here)
+#				target_socket.gem = gem
+#				gem = gem_at_target
+#				Game.current_gamestate = Game.GameState.IDLE
 
 func determine_swipe_direction(cursor_pos):
 	#as long as at least one of the speed components are less than the thresshold
