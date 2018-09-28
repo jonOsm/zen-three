@@ -168,6 +168,7 @@ func find_all_matches():
 			Game.current_gamestate = Game.GameState.RESOLVING_MATCHES
 		else:
 			Game.current_gamestate = Game.IDLE
+			
 func find_matches(start_index, symbol):
 	var sockets_snapshot = get_children()
 	var consecutive_up_matches = []
