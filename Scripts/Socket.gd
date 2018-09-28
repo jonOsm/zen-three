@@ -89,7 +89,6 @@ func _gui_input(event):
 		return
 		
 	if is_touch_or_click_pressed(event):
-		current_board.highlighted_socket = self
 		Game.current_gamestate = Game.GameState.GEM_TOUCHED
 	if is_touch_or_click_released(event):
 		
@@ -99,57 +98,68 @@ func _gui_input(event):
 	if is_screen_dragging_or_mouse_moving(event) and Game.current_gamestate == Game.GameState.GEM_TOUCHED:
 		
 	
-		print(str(event.position))
-		DEBUG_LABEL.set_text(current_board.detect_swap(event.position))
-#		var direction = determine_swipe_direction(event)
-#		var target_index = find_swap_target_index(direction)
-#		if (target_index > -1):
-#
-#
-#			#swap ownership of gem
-#			var target_socket = current_board.get_children()[target_index]
-#			var gem_at_target = target_socket.gem
-#			var gem_here = gem
-#			remove_child(gem)
-#			target_socket.remove_child(target_socket.gem)
-#			add_child(gem_at_target)
-#			target_socket.add_child(gem_here)
-#			target_socket.gem = gem
-#			gem = gem_at_target
-#
-#			Game.current_gamestate = Game.GameState.SWAPPING
-#
-#			#check for match
-#			var match_found = current_board.queue_matches(grid_index, target_index)
-#			if match_found:
-#				Game.current_gamestate = Game.GameState.RESOLVING_MATCHES
-#			else:
-#				Game.current_gamestate = Game.GameState.LOCKED
-#				yield(get_tree().create_timer(swap_back_delay), "timeout")
-#				target_socket = current_board.get_children()[target_index]
-#				gem_at_target = target_socket.gem
-#				gem_here = gem
-#				remove_child(gem)
-#				target_socket.remove_child(target_socket.gem)
-#				add_child(gem_at_target)
-#				target_socket.add_child(gem_here)
-#				target_socket.gem = gem
-#				gem = gem_at_target
-#				Game.current_gamestate = Game.GameState.IDLE
+#		print(str(event.position))
+#		DEBUG_LABEL.set_text(current_board.detect_swap(event.position))
+		var direction = determine_swipe_direction(event.position)
+		var target_index = find_swap_target_index(direction)
+		if (target_index > -1):
 
-func determine_swipe_direction(event):
+
+			#swap ownership of gem
+			var target_socket = current_board.get_children()[target_index]
+			var gem_at_target = target_socket.gem
+			var gem_here = gem
+			remove_child(gem)
+			target_socket.remove_child(target_socket.gem)
+			add_child(gem_at_target)
+			target_socket.add_child(gem_here)
+			target_socket.gem = gem
+			gem = gem_at_target
+
+			Game.current_gamestate = Game.GameState.SWAPPING
+
+			#check for match
+			var match_found = current_board.queue_matches(grid_index, target_index)
+			if match_found:
+				Game.current_gamestate = Game.GameState.RESOLVING_MATCHES
+			else:
+				Game.current_gamestate = Game.GameState.LOCKED
+				yield(get_tree().create_timer(swap_back_delay), "timeout")
+				target_socket = current_board.get_children()[target_index]
+				gem_at_target = target_socket.gem
+				gem_here = gem
+				remove_child(gem)
+				target_socket.remove_child(target_socket.gem)
+				add_child(gem_at_target)
+				target_socket.add_child(gem_here)
+				target_socket.gem = gem
+				gem = gem_at_target
+				Game.current_gamestate = Game.GameState.IDLE
+
+func determine_swipe_direction(cursor_pos):
 	#as long as at least one of the speed components are less than the thresshold
 	#run swapping code -- this is in case someone swaps on the diagonal
-	if abs(event.speed.x) < swipe_speed_threshold or abs(event.speed.y) < swipe_speed_threshold:		
-		if event.speed.x > swipe_speed_threshold:
-			return Swap_Direction.RIGHT	
-		elif event.speed.x < -swipe_speed_threshold:
-			return Swap_Direction.LEFT
-
-		if event.speed.y > swipe_speed_threshold:
-			return Swap_Direction.DOWN
-		elif event.speed.y < -swipe_speed_threshold:
-			return Swap_Direction.UP
+	var scale = 0.5
+	var size = self.rect_size.x #x and y should be the same
+	var center_offset = size/2
+	var right_threshold = size + center_offset
+	var left_threshold = -size * scale + center_offset
+	var up_threshold = left_threshold
+	var down_threshold = right_threshold
+	var dl = ""
+	if cursor_pos.x > right_threshold:
+		return Swap_Direction.RIGHT
+	
+	if cursor_pos.x < left_threshold:
+		dl = "left"
+		return Swap_Direction.LEFT
+	
+	if cursor_pos.y > down_threshold:
+		dl = "down"
+		return Swap_Direction.DOWN
+		
+	if cursor_pos.y < up_threshold:
+		return Swap_Direction.UP
 	return Swap_Direction.NONE
 
 #TODO: improve this by returning a dictionary containing index

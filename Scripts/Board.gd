@@ -11,7 +11,7 @@ var gem = preload("res://Scenes/Gem.tscn")
 var queued_matches = []
 var newly_generated = []
 var generation_timer = 0
-var highlighted_socket
+
 onready var DEBUG_LABEL = Game.DEBUG_LABEL
 signal refill_sockets
 signal match_resolved
@@ -21,30 +21,7 @@ func _ready():
 	
 	regenerate_board()
 
-func detect_swap(cursor_pos):
-	var scale = 1
-	var size = highlighted_socket.rect_size.x #x and y should be the same
-	var center_offset = size/2
-	var right_threshold = size + center_offset
-	var left_threshold = -size * scale + center_offset
-	var up_threshold = left_threshold
-	var down_threshold = right_threshold
-	var dl = ""
-	if cursor_pos.x > right_threshold:
-		dl = "right"
-	
-	if cursor_pos.x < left_threshold:
-		dl = "left"
-		print("left swap detected")
-	
-	if cursor_pos.y > down_threshold:
-		dl = "down"
-		print("down swap detected")
-		
-	if cursor_pos.y < up_threshold:
-		dl = "up"
-		print("up swap detected")
-	return dl
+
 func regenerate_board():
 	if get_child_count() > 0:
 		for socket in get_children():
@@ -71,20 +48,23 @@ func _process(delta):
 			Game.current_gamestate = Game.IDLE
 			
 	elif Game.current_gamestate == Game.GameState.RESOLVING_MATCHES:
-		if generation_timer < 0.7:
-			generation_timer+=delta
-		else:
-			generation_timer = 0
-			for socket in get_children():
-				if socket.status == socket.Socket_Status.GENERATION_QUEUED:
-					socket.generate_gem()
-			Game.current_gamestate = Game.GameState.CHECKING_NEWLY_GENERATED
-			
-		for m in queued_matches:
-			handle_match(m)
-			emit_signal("match_resolved", m.size()) #used in zen mode script to increase score
-		queued_matches = []
+		resolve_matches(delta)
 		
+func resolve_matches(delta):
+	if generation_timer < 0.7:
+			generation_timer+=delta
+	else:
+		generation_timer = 0
+		for socket in get_children():
+			if socket.status == socket.Socket_Status.GENERATION_QUEUED:
+				socket.generate_gem()
+		Game.current_gamestate = Game.GameState.CHECKING_NEWLY_GENERATED
+		
+	for m in queued_matches:
+		handle_match(m)
+		emit_signal("match_resolved", m.size()) #used in zen mode script to increase score
+	queued_matches = []	
+	
 #TODO: DON'T HAVE BOARD TALK DIRECTLY TO GEM, GO THROUGH SOCKET
 func handle_match(the_match):
 	var all_sockets = get_children()
