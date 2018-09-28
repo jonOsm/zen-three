@@ -16,7 +16,7 @@ var gem_preload = preload("res://Scenes/Gem.tscn")
 var gem
 var status = Socket_Status.AWAITING_INPUT
 var is_animating
-
+onready var DEBUG_LABEL = Game.DEBUG_LABEL
 enum Swap_Direction {
 	UP,
 	RIGHT,
@@ -55,28 +55,55 @@ func generate_gem():
 		
 func set_is_animating(value):
 	is_animating = value
+	
+func is_touch_or_click_pressed(e):
+	var is_touch = e is InputEventScreenTouch
+	if is_touch and e.is_pressed():
+		return true
 		
+	var is_click = e is InputEventMouseButton
+	if is_click and e.is_pressed() and e.button_index == BUTTON_LEFT:
+		return true
+		
+	return false
+
+func is_touch_or_click_released(e):
+	var is_touch = e is InputEventScreenTouch
+	if is_touch and not e.is_pressed():
+		return true
+		
+	var is_click = e is InputEventMouseButton
+	if is_click and  not e.is_pressed() and e.button_index == BUTTON_LEFT:
+		return true
+		
+	return false
+
+func is_screen_dragging_or_mouse_moving(e):
+	var is_mouse_moving = e is InputEventMouseMotion and e.button_mask == BUTTON_MASK_LEFT
+	var is_screen_dragging = e is InputEventScreenDrag
+	return is_mouse_moving or is_screen_dragging
+	
 func _gui_input(event):
+	
 	if Game.current_gamestate == Game.GameState.RESOLVING_MATCHES or Game.current_gamestate == Game.GameState.LOCKED:
 		return
 		
-	if event is InputEventScreenDrag:
-		pass #IMPLEMENT IF NECESSARY
-		
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == BUTTON_LEFT:
+	if is_touch_or_click_pressed(event):
+		DEBUG_LABEL.set_text(str(rect_position))
 		Game.current_gamestate = Game.GameState.GEM_TOUCHED
-	
-	#might need to move this into mouse drag event below
-	if event is InputEventMouseButton and event.is_action_released("left_click") and event.button_index == BUTTON_LEFT:
+	if is_touch_or_click_released(event):
+		DEBUG_LABEL.set_text("released" + str(self))
 		Game.current_gamestate = Game.GameState.IDLE
+
 		
-	if event is InputEventMouseMotion and event.button_mask == BUTTON_MASK_LEFT and Game.current_gamestate == Game.GameState.GEM_TOUCHED:
-		
+	if is_screen_dragging_or_mouse_moving(event) and Game.current_gamestate == Game.GameState.GEM_TOUCHED:
+
+		DEBUG_LABEL.set_text("Speed:" + str(event.speed))
 		var direction = determine_swipe_direction(event)
 		var target_index = find_swap_target_index(direction)
 		if (target_index > -1):
-			
-			
+
+
 			#swap ownership of gem
 			var target_socket = current_board.get_children()[target_index]
 			var gem_at_target = target_socket.gem
@@ -89,7 +116,7 @@ func _gui_input(event):
 			gem = gem_at_target
 
 			Game.current_gamestate = Game.GameState.SWAPPING
-			
+
 			#check for match
 			var match_found = current_board.queue_matches(grid_index, target_index)
 			if match_found:

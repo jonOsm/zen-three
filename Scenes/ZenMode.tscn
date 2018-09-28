@@ -1,9 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/ZenMode.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=2]
-[ext_resource path="res://DynamicFonts/Button.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Fonts/SCRIPTIN.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scripts/DebugLabel.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=4]
+[ext_resource path="res://DynamicFonts/Button.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Fonts/SCRIPTIN.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=3]
+
+size = 30
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 2 )
+_sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=2]
 
@@ -12,7 +22,7 @@ use_mipmaps = true
 use_filter = true
 extra_spacing_top = -30
 extra_spacing_bottom = -20
-font_data = ExtResource( 4 )
+font_data = ExtResource( 6 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [node name="ZenMode" type="Node2D" index="0"]
@@ -55,8 +65,34 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" index="0"]
+[node name="DebugLabel" type="Label" parent="CanvasLayer" index="0"]
 
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -680.0
+margin_top = 10.0
+margin_right = -41.0
+margin_bottom = 89.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 3 )
+text = "Event: ????  Speed: ??"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = ExtResource( 3 )
+_sections_unfolded = [ "Focus", "Grow Direction", "Hint", "Mouse", "Rect", "Size Flags", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" index="1"]
+
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -72,7 +108,7 @@ size_flags_vertical = 1
 use_top_left = false
 _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Mouse", "Rect", "Size Flags" ]
 
-[node name="Board" parent="CanvasLayer/CenterContainer" index="0" instance=ExtResource( 2 )]
+[node name="Board" parent="CanvasLayer/CenterContainer" index="0" instance=ExtResource( 4 )]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -89,8 +125,10 @@ _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Mouse", "Rect", "S
 board_width = 6
 board_height = 9
 
-[node name="PopupPanel" type="PopupPanel" parent="CanvasLayer" index="1"]
+[node name="PopupPanel" type="PopupPanel" parent="CanvasLayer" index="2"]
 
+editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -151,7 +189,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -177,7 +215,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -212,16 +250,16 @@ text = "X"
 flat = true
 align = 1
 
-[node name="Button" type="Button" parent="CanvasLayer" index="2"]
+[node name="Button" type="Button" parent="CanvasLayer" index="3"]
 
 anchor_left = 1.0
-anchor_top = 0.0
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.0
-margin_left = -230.0
-margin_top = 1390.0
-margin_right = -10.0
-margin_bottom = 1463.0
+anchor_bottom = 1.0
+margin_left = -240.0
+margin_top = -90.0
+margin_right = -20.0
+margin_bottom = -17.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -240,7 +278,7 @@ clip_text = true
 align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer" index="3"]
+[node name="ScoreLabel" type="Label" parent="CanvasLayer" index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -256,7 +294,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 5 )
 text = "000000"
 percent_visible = 1.0
 lines_skipped = 0

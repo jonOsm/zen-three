@@ -5,19 +5,28 @@ enum Symbols {
 	TRIANGLE,
 	SQUARE,
 	DIAMOND,
-	TRAPAZOID,
+	PENTAGON,
 	STAR,
 	CIRCLE
 	}
-var symbol_colors = {
+	
+const symbol_colors = {
 	Symbols.TRIANGLE: Color(0,1,0), #green
 	Symbols.SQUARE: Color(0,0,1), #blue
 	Symbols.DIAMOND: Color(1,0,0), #red
-	Symbols.TRAPAZOID: Color(1,0,1), #purple
+	Symbols.PENTAGON: Color(1,0,1), #purple
 	Symbols.STAR:Color(1,1,0),
 	Symbols.CIRCLE: Color(.75,1,1)
 }
-	
+
+var symbol_img = {
+	Symbols.TRIANGLE: "res://Assets/PNG/Tiles green/tileGreen_31.png",
+	Symbols.SQUARE: "res://Assets/PNG/Tiles blue/tileBlue_37.png",
+	Symbols.DIAMOND: "res://Assets/PNG/Tiles red/tileRed_40.png",
+	Symbols.PENTAGON: "res://Assets/PNG/Tiles orange/tileOrange_40.png",
+	Symbols.STAR: "res://Assets/PNG/Tiles yellow/tileYellow_45.png",
+	Symbols.CIRCLE: "res://Assets/PNG/Tiles black/tileBlack_47.png"
+}
 
 var symbol = Symbols.SQUARE
 var size = 96
@@ -28,15 +37,25 @@ signal gem_destruction_complete
 func _ready():
 	rect_min_size = Vector2(0,0)
 	#$Sprite.offset = Vector2(size/2, size/2)
-	
+	set_texture_to_img()
 	if not $Sprite.texture:
-		set_texture_to_placeholder()
+		pass
+		#set_texture_to_placeholder()
 	$AnimationPlayer.play("Placeholder_Generate")
 
 func set_symbol(new_symbol):
 	symbol = new_symbol
-	set_texture_to_placeholder()
+	set_texture_to_img()
+	#set_texture_to_placeholder()
 	
+func set_texture_to_img():
+	
+#	var placeholder_texture = ImageTexture.new()
+#
+#	placeholder_texture.create_from_image()
+	var img = load(symbol_img[symbol])
+	
+	$Sprite.texture = img
 	
 func set_texture_to_placeholder():
 	var placeholder_img = Image.new()
