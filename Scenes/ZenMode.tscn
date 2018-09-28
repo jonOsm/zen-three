@@ -7,7 +7,7 @@
 [ext_resource path="res://DynamicFonts/Button.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Fonts/SCRIPTIN.ttf" type="DynamicFontData" id=6]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 
 size = 30
 use_mipmaps = false
@@ -25,7 +25,7 @@ extra_spacing_bottom = -20
 font_data = ExtResource( 6 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="ZenMode" type="Node2D" index="0"]
+[node name="ZenMode" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -81,7 +81,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "Event: ????  Speed: ??"
 align = 2
 percent_visible = 1.0
@@ -92,7 +92,6 @@ _sections_unfolded = [ "Focus", "Grow Direction", "Hint", "Mouse", "Rect", "Size
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0

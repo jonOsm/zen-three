@@ -29,7 +29,7 @@ export (float) var swap_back_delay = 0.5
 
 func _ready():
 	rect_min_size = size
-	rect_size = size
+	#rect_size = size
 	generate_gem()
 	current_board.connect("refill_sockets",self, "generate_gem")
 	
@@ -89,51 +89,53 @@ func _gui_input(event):
 		return
 		
 	if is_touch_or_click_pressed(event):
-		DEBUG_LABEL.set_text(str(rect_position))
+		current_board.highlighted_socket = self
 		Game.current_gamestate = Game.GameState.GEM_TOUCHED
 	if is_touch_or_click_released(event):
-		DEBUG_LABEL.set_text("released" + str(self))
+		
 		Game.current_gamestate = Game.GameState.IDLE
 
 		
 	if is_screen_dragging_or_mouse_moving(event) and Game.current_gamestate == Game.GameState.GEM_TOUCHED:
-
-		DEBUG_LABEL.set_text("Speed:" + str(event.speed))
-		var direction = determine_swipe_direction(event)
-		var target_index = find_swap_target_index(direction)
-		if (target_index > -1):
-
-
-			#swap ownership of gem
-			var target_socket = current_board.get_children()[target_index]
-			var gem_at_target = target_socket.gem
-			var gem_here = gem
-			remove_child(gem)
-			target_socket.remove_child(target_socket.gem)
-			add_child(gem_at_target)
-			target_socket.add_child(gem_here)
-			target_socket.gem = gem
-			gem = gem_at_target
-
-			Game.current_gamestate = Game.GameState.SWAPPING
-
-			#check for match
-			var match_found = current_board.queue_matches(grid_index, target_index)
-			if match_found:
-				Game.current_gamestate = Game.GameState.RESOLVING_MATCHES
-			else:
-				Game.current_gamestate = Game.GameState.LOCKED
-				yield(get_tree().create_timer(swap_back_delay), "timeout")
-				target_socket = current_board.get_children()[target_index]
-				gem_at_target = target_socket.gem
-				gem_here = gem
-				remove_child(gem)
-				target_socket.remove_child(target_socket.gem)
-				add_child(gem_at_target)
-				target_socket.add_child(gem_here)
-				target_socket.gem = gem
-				gem = gem_at_target
-				Game.current_gamestate = Game.GameState.IDLE
+		
+	
+		print(str(event.position))
+		DEBUG_LABEL.set_text(current_board.detect_swap(event.position))
+#		var direction = determine_swipe_direction(event)
+#		var target_index = find_swap_target_index(direction)
+#		if (target_index > -1):
+#
+#
+#			#swap ownership of gem
+#			var target_socket = current_board.get_children()[target_index]
+#			var gem_at_target = target_socket.gem
+#			var gem_here = gem
+#			remove_child(gem)
+#			target_socket.remove_child(target_socket.gem)
+#			add_child(gem_at_target)
+#			target_socket.add_child(gem_here)
+#			target_socket.gem = gem
+#			gem = gem_at_target
+#
+#			Game.current_gamestate = Game.GameState.SWAPPING
+#
+#			#check for match
+#			var match_found = current_board.queue_matches(grid_index, target_index)
+#			if match_found:
+#				Game.current_gamestate = Game.GameState.RESOLVING_MATCHES
+#			else:
+#				Game.current_gamestate = Game.GameState.LOCKED
+#				yield(get_tree().create_timer(swap_back_delay), "timeout")
+#				target_socket = current_board.get_children()[target_index]
+#				gem_at_target = target_socket.gem
+#				gem_here = gem
+#				remove_child(gem)
+#				target_socket.remove_child(target_socket.gem)
+#				add_child(gem_at_target)
+#				target_socket.add_child(gem_here)
+#				target_socket.gem = gem
+#				gem = gem_at_target
+#				Game.current_gamestate = Game.GameState.IDLE
 
 func determine_swipe_direction(event):
 	#as long as at least one of the speed components are less than the thresshold

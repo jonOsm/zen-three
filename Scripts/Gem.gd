@@ -35,9 +35,10 @@ signal gem_animation_started
 signal gem_destruction_complete
 
 func _ready():
-	rect_min_size = Vector2(0,0)
+	rect_min_size = Vector2(size, size)
 	#$Sprite.offset = Vector2(size/2, size/2)
 	set_texture_to_img()
+	$Sprite.position = Vector2(size/2, size/2)
 	if not $Sprite.texture:
 		pass
 		#set_texture_to_placeholder()
