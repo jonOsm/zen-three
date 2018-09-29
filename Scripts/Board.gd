@@ -52,37 +52,28 @@ func regenerate_board():
 	play_state = GENERATING
 
 func _process(delta):
-	#add a switchboard here
+	animating = any_gems_animating()
 	
 	if animating:
 		return 
-	
-	print(play_state)
+		
 	match play_state:
 		IDLE:
-			
-			#accept user input
-			#play any idle animations
 			pass
 		SWAPPING:
-			#if swap_start_socket and swap_end_socket:
+			execute_swap(swap_start_socket, swap_end_socket)
+			if queue_matches(swap_start_socket, swap_end_socket):
+				play_state = RESOLVING_MATCHES
+			else:
 				execute_swap(swap_start_socket, swap_end_socket)
-				if queue_matches(swap_start_socket, swap_end_socket):
-					play_state = RESOLVING_MATCHES
-				else:
-					#yield to animation
-					
-					animating = true
-					yield(get_tree().create_timer(0.7), "timeout")
-					animating = false
-					execute_swap(swap_start_socket, swap_end_socket)
-					play_state = IDLE
-					#swapback
+				play_state = IDLE
+				#swapback
 			
 		GENERATING:
 			for socket in get_children():
 					if socket.status == socket.Socket_Status.GENERATION_QUEUED:
 						socket.generate_gem()
+			
 			find_all_matches()
 			play_state = RESOLVING_MATCHES
 		RESOLVING_MATCHES:
@@ -93,21 +84,12 @@ func _process(delta):
 			else:
 				play_state = IDLE
 
-
-#	if Game.current_gamestate == Game.GameState.CHECKING_NEWLY_GENERATED:	
-#		find_all_matches()		
-#	elif Game.current_gamestate == Game.GameState.RESOLVING_MATCHES:
-#		#need to base this on animation completion of all gems	
-#		if generation_timer < 0.7:
-#			generation_timer+=delta
-#			resolve_matches(delta)
-#		else:
-#			generation_timer = 0
-#			for socket in get_children():
-#				if socket.status == socket.Socket_Status.GENERATION_QUEUED:
-#					socket.generate_gem()
-#			Game.current_gamestate = Game.GameState.CHECKING_NEWLY_GENERATED
-			
+func any_gems_animating():
+	for child in get_children():	
+		if child.gem and child.gem.animation_player.is_playing():
+			return true
+	return false
+	
 func execute_swap(swap_start_socket, swap_end_socket):
 	print("executing swap")
 	var start_socket = get_children()[swap_start_socket]
@@ -136,11 +118,8 @@ func handle_match(the_match):
 	for socket_index in the_match:
 		var socket = all_sockets[socket_index]
 		if socket.gem:
-			socket.status = socket.Socket_Status.GENERATION_QUEUED
-			socket.gem.destroy()
-			socket.gem = null
-			#socket.generate_gem()
-	
+			socket.handle_match()
+
 			
 
 func _input(event):

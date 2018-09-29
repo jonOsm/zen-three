@@ -15,7 +15,6 @@ var current_board
 var gem_preload = preload("res://Scenes/Gem.tscn")
 var gem
 var status = Socket_Status.AWAITING_INPUT
-var is_animating
 onready var DEBUG_LABEL = Game.DEBUG_LABEL
 enum Swap_Direction {
 	UP,
@@ -41,7 +40,15 @@ func _ready():
 		index_label.valign = VALIGN_CENTER
 		
 		add_child(index_label)
-
+func handle_match():
+	#tells gem to destroy itself
+	#sets gem to null after animations
+	
+	gem.destroy()
+	yield(gem.animation_player, "animation_finished")
+	status = Socket_Status.GENERATION_QUEUED
+	gem = null
+	
 func generate_gem():
 	#print(get_child(0).name)
 	if not gem:
@@ -49,34 +56,7 @@ func generate_gem():
 		gem.rect_min_size = Vector2(0,0)
 		gem.rect_size = Vector2(0,0)
 		gem.set_symbol(randi() % gem.Symbols.size())
-		gem.connect("gem_animation_complete", self, "set_is_animating")
-		gem.connect("gem_animation_started", self, "set_is_animating")
 		add_child(gem, true)
-		
-func set_is_animating(value):
-	is_animating = value
-	
-func is_touch_or_click_pressed(e):
-	var is_touch = e is InputEventScreenTouch
-	if is_touch and e.is_pressed():
-		return true
-		
-	var is_click = e is InputEventMouseButton
-	if is_click and e.is_pressed() and e.button_index == BUTTON_LEFT:
-		return true
-		
-	return false
-
-func is_touch_or_click_released(e):
-	var is_touch = e is InputEventScreenTouch
-	if is_touch and not e.is_pressed():
-		return true
-		
-	var is_click = e is InputEventMouseButton
-	if is_click and  not e.is_pressed() and e.button_index == BUTTON_LEFT:
-		return true
-		
-	return false
 
 func is_screen_dragging_or_mouse_moving(e):
 	var is_mouse_moving = e is InputEventMouseMotion and e.button_mask == BUTTON_MASK_LEFT
@@ -88,7 +68,6 @@ func _gui_input(event):
 	var idle = current_board.play_state == current_board.IDLE
 		
 	if is_screen_dragging_or_mouse_moving(event) and idle:# and Game.current_gamestate == Game.GameState.GEM_TOUCHED:
-		print(event.as_text())
 		var direction = determine_swipe_direction(event.position)
 		var target_index = find_swap_target_index(direction)
 		
@@ -96,41 +75,8 @@ func _gui_input(event):
 			current_board.swap_start_socket = grid_index
 			current_board.swap_end_socket = target_index
 			current_board.play_state = current_board.SWAPPING
-			
-			#swap ownership of gem
-#			var target_socket = current_board.get_children()[target_index]
-#			var gem_at_target = target_socket.gem
-#			var gem_here = gem
-#			remove_child(gem)
-#			target_socket.remove_child(target_socket.gem)
-#			add_child(gem_at_target)
-#			target_socket.add_child(gem_here)
-#			target_socket.gem = gem
-#			gem = gem_at_target
-
-			Game.current_gamestate = Game.GameState.SWAPPING
-
-			#check for match
-#			var match_found = current_board.queue_matches(grid_index, target_index)
-#			if match_found:
-#				Game.current_gamestate = Game.GameState.RESOLVING_MATCHES
-#			else:
-#				Game.current_gamestate = Game.GameState.LOCKED
-#				yield(get_tree().create_timer(swap_back_delay), "timeout")
-#				target_socket = current_board.get_children()[target_index]
-#				gem_at_target = target_socket.gem
-#				gem_here = gem
-#				remove_child(gem)
-#				target_socket.remove_child(target_socket.gem)
-#				add_child(gem_at_target)
-#				target_socket.add_child(gem_here)
-#				target_socket.gem = gem
-#				gem = gem_at_target
-#				Game.current_gamestate = Game.GameState.IDLE
 
 func determine_swipe_direction(cursor_pos):
-	#as long as at least one of the speed components are less than the thresshold
-	#run swapping code -- this is in case someone swaps on the diagonal
 	var scale = 0.5
 	var size = self.rect_size.x #x and y should be the same
 	var center_offset = size/2

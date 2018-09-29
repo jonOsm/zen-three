@@ -33,6 +33,7 @@ var size = 96
 signal gem_animation_complete
 signal gem_animation_started
 signal gem_destruction_complete
+onready var animation_player = $AnimationPlayer
 
 func _ready():
 	rect_min_size = Vector2(size, size)
@@ -42,7 +43,7 @@ func _ready():
 	if not $Sprite.texture:
 		pass
 		#set_texture_to_placeholder()
-	$AnimationPlayer.play("Placeholder_Generate")
+	animation_player.play("Placeholder_Generate")
 
 func set_symbol(new_symbol):
 	symbol = new_symbol
@@ -67,7 +68,7 @@ func set_texture_to_placeholder():
 	placeholder_texture.create_from_image(placeholder_img)
 	$Sprite.texture = placeholder_texture
 func destroy():
-	$AnimationPlayer.play("Placeholder_Destroy")
+	animation_player.play("Placeholder_Destroy")
 	yield(get_node("AnimationPlayer"), "animation_finished")
 	queue_free()
 	
