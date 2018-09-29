@@ -85,10 +85,10 @@ func is_screen_dragging_or_mouse_moving(e):
 	
 func _gui_input(event):
 
-	var idle = Game.current_gamestate == Game.GameState.IDLE
+	var idle = current_board.play_state == current_board.IDLE
 		
 	if is_screen_dragging_or_mouse_moving(event) and idle:# and Game.current_gamestate == Game.GameState.GEM_TOUCHED:
-
+		print(event.as_text())
 		var direction = determine_swipe_direction(event.position)
 		var target_index = find_swap_target_index(direction)
 		

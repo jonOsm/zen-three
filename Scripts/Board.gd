@@ -24,6 +24,7 @@ enum {
 var play_state
 var swap_start_socket
 var swap_end_socket
+var animating = false
 
 onready var DEBUG_LABEL = Game.DEBUG_LABEL
 signal refill_sockets
@@ -48,46 +49,64 @@ func regenerate_board():
 		sockets.append(socket)
 		add_child(socket)
 	newly_generated = range(get_child_count())
-	Game.current_gamestate = Game.GameState.CHECKING_NEWLY_GENERATED
 	play_state = GENERATING
 
 func _process(delta):
 	#add a switchboard here
+	
+	if animating:
+		return 
+	
+	print(play_state)
 	match play_state:
 		IDLE:
+			
 			#accept user input
 			#play any idle animations
 			pass
 		SWAPPING:
-			if swap_start_socket and swap_end_socket:
+			#if swap_start_socket and swap_end_socket:
 				execute_swap(swap_start_socket, swap_end_socket)
-			#play animation
-			#on anmation end:
-			play_state = RESOLVING_MATCHES
-			pass
+				if queue_matches(swap_start_socket, swap_end_socket):
+					play_state = RESOLVING_MATCHES
+				else:
+					#yield to animation
+					
+					animating = true
+					yield(get_tree().create_timer(0.7), "timeout")
+					animating = false
+					execute_swap(swap_start_socket, swap_end_socket)
+					play_state = IDLE
+					#swapback
+			
 		GENERATING:
-			pass
-		RESOLVING_MATCHES:
-			find_all_matches()
-			#if any new gems, match and generate new to fill
-			#otherise
-			play_state = IDLE
-			pass
-
-
-	if Game.current_gamestate == Game.GameState.CHECKING_NEWLY_GENERATED:	
-		find_all_matches()		
-	elif Game.current_gamestate == Game.GameState.RESOLVING_MATCHES:
-		#need to base this on animation completion of all gems	
-		if generation_timer < 0.7:
-			generation_timer+=delta
-			resolve_matches(delta)
-		else:
-			generation_timer = 0
 			for socket in get_children():
-				if socket.status == socket.Socket_Status.GENERATION_QUEUED:
-					socket.generate_gem()
-			Game.current_gamestate = Game.GameState.CHECKING_NEWLY_GENERATED
+					if socket.status == socket.Socket_Status.GENERATION_QUEUED:
+						socket.generate_gem()
+			find_all_matches()
+			play_state = RESOLVING_MATCHES
+		RESOLVING_MATCHES:
+			print(queued_matches)
+			if queued_matches.size() > 0:
+				resolve_matches(delta)
+				play_state = GENERATING
+			else:
+				play_state = IDLE
+
+
+#	if Game.current_gamestate == Game.GameState.CHECKING_NEWLY_GENERATED:	
+#		find_all_matches()		
+#	elif Game.current_gamestate == Game.GameState.RESOLVING_MATCHES:
+#		#need to base this on animation completion of all gems	
+#		if generation_timer < 0.7:
+#			generation_timer+=delta
+#			resolve_matches(delta)
+#		else:
+#			generation_timer = 0
+#			for socket in get_children():
+#				if socket.status == socket.Socket_Status.GENERATION_QUEUED:
+#					socket.generate_gem()
+#			Game.current_gamestate = Game.GameState.CHECKING_NEWLY_GENERATED
 			
 func execute_swap(swap_start_socket, swap_end_socket):
 	print("executing swap")
@@ -101,7 +120,7 @@ func execute_swap(swap_start_socket, swap_end_socket):
 	
 	start_socket.add_child(gem_at_target)
 	target_socket.add_child(gem_here)
-	target_socket.gem = gem
+	target_socket.gem = gem_here
 	start_socket.gem = gem_at_target
 	
 func resolve_matches(delta):
