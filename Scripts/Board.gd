@@ -1,5 +1,14 @@
 extends GridContainer
 
+enum {
+	IDLE,
+	GENERATING,
+	CHECKING_NEWLY_GENERATED,
+	RESOLVING_MATCHES,
+	GEM_TOUCHED,
+	SWAPPING
+}
+
 export (int) var board_width = 8
 export (int) var board_height = 8
 
@@ -11,24 +20,15 @@ var gem = preload("res://Scenes/Gem.tscn")
 var queued_matches = []
 var newly_generated = []
 var generation_timer = 0
-
-enum {
-	IDLE,
-	GENERATING,
-	CHECKING_NEWLY_GENERATED,
-	RESOLVING_MATCHES,
-	GEM_TOUCHED,
-	SWAPPING
-}
-
 var play_state
 var swap_start_socket
 var swap_end_socket
 var animating = false
-
 onready var DEBUG_LABEL = Game.DEBUG_LABEL
 signal refill_sockets
 signal match_resolved
+var tracking_score = false
+var regeneration_complete = false
 
 func _ready():
 	randomize()
@@ -56,11 +56,13 @@ func _process(delta):
 	
 	if animating:
 		return 
-		
+	
+	
 	match play_state:
 		IDLE:
 			pass
 		SWAPPING:
+			tracking_score = true
 			execute_swap(swap_start_socket, swap_end_socket)
 			if queue_matches(swap_start_socket, swap_end_socket):
 				play_state = RESOLVING_MATCHES
@@ -83,7 +85,8 @@ func _process(delta):
 				play_state = GENERATING
 			else:
 				play_state = IDLE
-
+				
+	
 func any_gems_animating():
 	for child in get_children():	
 		if child.gem and child.gem.animation_player.is_playing():
@@ -109,7 +112,8 @@ func resolve_matches(delta):
 	
 	for m in queued_matches:
 		handle_match(m)
-		emit_signal("match_resolved", m.size()) #used in zen mode script to increase score
+		if tracking_score:
+			emit_signal("match_resolved", m.size()) #used in zen mode script to increase score
 	queued_matches = []	
 	
 #TODO: DON'T HAVE BOARD TALK DIRECTLY TO GEM, GO THROUGH SOCKET

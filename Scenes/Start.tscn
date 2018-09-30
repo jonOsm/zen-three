@@ -1,24 +1,66 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Start.gd" type="Script" id=1]
-[ext_resource path="res://Fonts/SCRIPTIN.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://DynamicFonts/Button.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=2]
+[ext_resource path="res://DynamicFonts/Button_Thin.tres" type="DynamicFont" id=3]
+[ext_resource path="res://DynamicFonts/Start.tres" type="DynamicFont" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="Animation" id=1]
 
-size = 120
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 2 )
-_sections_unfolded = [ "Font", "Resource", "Settings" ]
+resource_name = "FadeCycle"
+length = 12.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4, 6, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.480667 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.478431 ) ]
+}
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="Animation" id=2]
 
-size = 60
-use_mipmaps = false
-use_filter = true
-font_data = ExtResource( 2 )
-_sections_unfolded = [ "Resource", "Settings" ]
+resource_name = "GameStart"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.152344, 0.152344, 0.152344, 0 ), Color( 0.152344, 0.152344, 0.152344, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "GameStart"
+length = 2.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.152344, 0.152344, 0.152344, 1 ), Color( 0.152344, 0.152344, 0.152344, 0 ) ]
+}
 
 [node name="Start" type="Control"]
 
@@ -33,84 +75,15 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
+_sections_unfolded = [ "Visibility" ]
 
-[node name="Background" type="ColorRect" parent="." index="0"]
+[node name="CenterContainer2" type="CenterContainer" parent="." index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-color = Color( 0.871094, 0.871094, 0.871094, 1 )
-
-[node name="Label" type="Label" parent="." index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-margin_top = 20.0
-margin_bottom = 371.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.246094, 0.246094, 0.246094, 1 )
-text = "Zen Three"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts" ]
-
-[node name="RichTextLabel" type="RichTextLabel" parent="." index="2"]
-
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-margin_left = 1.0
-margin_top = 43.0
-margin_right = 1.0
-margin_bottom = 227.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_fonts/normal_font = SubResource( 2 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-bbcode_enabled = false
-bbcode_text = ""
-visible_characters = -1
-percent_visible = 1.0
-meta_underlined = true
-tab_size = 4
-text = "Zen Three"
-scroll_active = false
-scroll_following = false
-selection_enabled = false
-override_selected_font_color = false
-_sections_unfolded = [ "Hint", "custom_colors", "custom_fonts", "custom_styles" ]
-
-[node name="CenterContainer" type="CenterContainer" parent="." index="3"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 170.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -119,36 +92,168 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 use_top_left = false
 
-[node name="StartButton" type="Button" parent="CenterContainer" index="0"]
+[node name="Board" parent="CenterContainer2" index="0" instance=ExtResource( 2 )]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 286.0
-margin_top = 554.0
-margin_right = 434.0
-margin_bottom = 755.0
+margin_left = 360.0
+margin_top = 740.0
+margin_right = 360.0
+margin_bottom = 740.0
+board_height = 17
+
+[node name="Background" type="ColorRect" parent="." index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.152344, 0.152344, 0.152344, 0.944745 )
+
+[node name="CenterContainer" type="CenterContainer" parent="." index="2"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 130.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+use_top_left = false
+_sections_unfolded = [ "Mouse" ]
+
+[node name="StartButton" type="Button" parent="CenterContainer" index="0"]
+
+editor/display_folded = true
+modulate = Color( 1, 1, 1, 0.480667 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 240.0
+margin_top = 628.0
+margin_right = 479.0
+margin_bottom = 722.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0.679688, 0.679688, 0.679688, 1 )
+custom_colors/font_color_hover = Color( 0.684246, 0.707031, 0.52475, 1 )
+custom_colors/font_color_pressed = Color( 0.767961, 0.767961, 0.767961, 1 )
 toggle_mode = false
-enabled_focus_mode = 2
+enabled_focus_mode = 0
 shortcut = null
 group = null
-text = "Play"
+text = "Begin"
 flat = true
 align = 1
-_sections_unfolded = [ "Size Flags", "custom_colors", "custom_fonts" ]
+_sections_unfolded = [ "Pause", "Visibility", "custom_colors" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CenterContainer/StartButton" index="0"]
+
+root_node = NodePath("..")
+autoplay = "FadeCycle"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/FadeCycle = SubResource( 1 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="Title" type="Label" parent="." index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_top = 180.0
+margin_bottom = 340.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.746094, 0.746094, 0.746094, 1 )
+text = "Zen Three"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Theme", "custom_colors", "custom_fonts", "custom_styles" ]
+
+[node name="SceneFadeOut" type="ColorRect" parent="." index="4"]
+
+editor/display_folded = true
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.152344, 0.152344, 0.152344, 0 )
+_sections_unfolded = [ "Mouse" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SceneFadeOut" index="0"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/GameStart = SubResource( 2 )
+blend_times = [  ]
+
+[node name="SceneFadeIn" type="ColorRect" parent="." index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.152344, 0.152344, 0.152344, 0 )
+_sections_unfolded = [ "Mouse" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SceneFadeIn" index="0"]
+
+root_node = NodePath("..")
+autoplay = "GameStart"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/GameStart = SubResource( 3 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
 
 [connection signal="button_up" from="CenterContainer/StartButton" to="." method="_on_StartButton_button_up"]
 

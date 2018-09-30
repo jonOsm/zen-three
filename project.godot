@@ -36,4 +36,5 @@ left_click=[ Object(InputEventMouseButton,"resource_local_to_scene":false,"resou
 
 [rendering]
 
+environment/default_clear_color=Color( 0.105469, 0.105469, 0.105469, 1 )
 environment/default_environment="res://default_env.tres"

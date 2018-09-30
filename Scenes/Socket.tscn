@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Socket.gd" type="Script" id=1]
 
-[node name="Socket" type="Control" index="0"]
+[node name="Socket" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -26,7 +26,6 @@ swap_back_delay = 0.5
 
 [node name="ColorRect" type="ColorRect" parent="." index="0"]
 
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -37,7 +36,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-color = Color( 0, 0.0892334, 0.671875, 0.607726 )
+color = Color( 0.527344, 0.527344, 0.527344, 0.160235 )
 _sections_unfolded = [ "Mouse", "Rect" ]
 
 
