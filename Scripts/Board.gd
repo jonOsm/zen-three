@@ -4,6 +4,7 @@ enum {
 	IDLE,
 	GENERATING,
 	CHECKING_NEWLY_GENERATED,
+	MATCH_CHECKING,
 	RESOLVING_MATCHES,
 	GEM_TOUCHED,
 	SWAPPING
@@ -23,6 +24,7 @@ var generation_timer = 0
 var play_state
 var swap_start_socket
 var swap_end_socket
+var swap_direction
 var animating = false
 onready var DEBUG_LABEL = Game.DEBUG_LABEL
 signal refill_sockets
@@ -63,14 +65,14 @@ func _process(delta):
 			pass
 		SWAPPING:
 			tracking_score = true
-			execute_swap(swap_start_socket, swap_end_socket)
+			execute_swap(swap_start_socket, swap_end_socket, swap_direction)
+			play_state = MATCH_CHECKING
+		MATCH_CHECKING:
 			if queue_matches(swap_start_socket, swap_end_socket):
 				play_state = RESOLVING_MATCHES
 			else:
-				execute_swap(swap_start_socket, swap_end_socket)
+				execute_swap(swap_start_socket, swap_end_socket, swap_direction)
 				play_state = IDLE
-				#swapback
-			
 		GENERATING:
 			for socket in get_children():
 					if socket.status == socket.Socket_Status.GENERATION_QUEUED:
@@ -93,20 +95,23 @@ func any_gems_animating():
 			return true
 	return false
 	
-func execute_swap(swap_start_socket, swap_end_socket):
+func execute_swap(swap_start_socket, swap_end_socket, swap_direction):
 	print("executing swap")
 	var start_socket = get_children()[swap_start_socket]
 	var target_socket = get_children()[swap_end_socket]
 	var gem_at_target = target_socket.gem
 	var gem_here = start_socket.gem
 	
-	start_socket.remove_child(start_socket.gem)
-	target_socket.remove_child(target_socket.gem)
+#	start_socket.remove_child(start_socket.gem)
+#	target_socket.remove_child(target_socket.gem)
+	start_socket.handle_swap(swap_direction, target_socket.gem.symbol)
+	target_socket.handle_swap(swap_direction, start_socket.gem.symbol, true)
 	
-	start_socket.add_child(gem_at_target)
-	target_socket.add_child(gem_here)
-	target_socket.gem = gem_here
-	start_socket.gem = gem_at_target
+#
+#	start_socket.add_child(gem_at_target)
+#	target_socket.add_child(gem_here)
+#	target_socket.gem = gem_here
+#	start_socket.gem = gem_at_target
 	
 func resolve_matches(delta):
 	

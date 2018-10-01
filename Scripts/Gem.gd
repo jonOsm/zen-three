@@ -36,6 +36,7 @@ signal gem_destruction_complete
 onready var animation_player = $AnimationPlayer
 
 func _ready():
+	$Sprite.scale
 	rect_min_size = Vector2(size, size)
 	#$Sprite.offset = Vector2(size/2, size/2)
 	set_texture_to_img()
@@ -43,7 +44,7 @@ func _ready():
 	if not $Sprite.texture:
 		pass
 		#set_texture_to_placeholder()
-	animation_player.play("Placeholder_Generate")
+	#animation_player.play("Placeholder_Generate")
 
 func set_symbol(new_symbol):
 	symbol = new_symbol

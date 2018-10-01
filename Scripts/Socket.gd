@@ -48,6 +48,36 @@ func handle_match():
 	yield(gem.animation_player, "animation_finished")
 	status = Socket_Status.GENERATION_QUEUED
 	gem = null
+
+func handle_swap(direction, replacement_symbol, reverse_direction = false):
+	if reverse_direction:
+		if direction == Swap_Direction.RIGHT:
+			direction = Swap_Direction.LEFT
+		elif direction == Swap_Direction.LEFT:
+			direction = Swap_Direction.RIGHT
+		elif direction == Swap_Direction.UP:
+			direction = Swap_Direction.DOWN
+		elif direction == Swap_Direction.DOWN:
+			direction = Swap_Direction.UP
+		
+	if direction == Swap_Direction.RIGHT:
+		gem.animation_player.play("Swap_Right")
+	if direction == Swap_Direction.LEFT:
+		gem.animation_player.play("Swap_Left")
+	if direction == Swap_Direction.UP:
+		gem.animation_player.play("Swap_Up")
+	if direction == Swap_Direction.DOWN:
+		gem.animation_player.play("Swap_Down")
+	
+	yield(gem.animation_player, "animation_finished")
+	remove_child(gem)
+	gem.queue_free()
+	var replacement = gem_preload.instance()
+	replacement.symbol = replacement_symbol
+	replacement.get_node("Sprite").scale = Vector2(0.5,0.5)
+	add_child(replacement)
+	gem = replacement
+	
 	
 func generate_gem():
 	#print(get_child(0).name)
@@ -57,6 +87,7 @@ func generate_gem():
 		gem.rect_size = Vector2(0,0)
 		gem.set_symbol(randi() % gem.Symbols.size())
 		add_child(gem, true)
+		gem.animation_player.play("Placeholder_Generate")
 
 func is_screen_dragging_or_mouse_moving(e):
 	var is_mouse_moving = e is InputEventMouseMotion and e.button_mask == BUTTON_MASK_LEFT
@@ -74,6 +105,7 @@ func _gui_input(event):
 		if (target_index > -1):
 			current_board.swap_start_socket = grid_index
 			current_board.swap_end_socket = target_index
+			current_board.swap_direction = direction
 			current_board.play_state = current_board.SWAPPING
 
 func determine_swipe_direction(cursor_pos):
