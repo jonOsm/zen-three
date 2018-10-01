@@ -156,8 +156,9 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -96 ) ]
 }
 
-[node name="Gem" type="Control" index="0"]
+[node name="Gem" type="Control"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

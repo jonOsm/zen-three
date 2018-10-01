@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/ZenMode.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://DynamicFonts/Button.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Fonts/SCRIPTIN.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://DynamicFonts/Score.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Assets/Music/346106__strangeacoustics__palm-trees-in-the-wind.ogg" type="AudioStream" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -99,6 +100,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="1"]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -411,6 +413,15 @@ playback_default_blend_time = 0.0
 playback_speed = 1.0
 anims/FadeIn = SubResource( 4 )
 blend_times = [  ]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2"]
+
+stream = ExtResource( 9 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Master"
 
 [connection signal="button_down" from="CanvasLayer/PopupPanel/CenterContainer/VBoxContainer/Quit" to="." method="_on_Quit_button_down"]
 
