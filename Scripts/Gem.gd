@@ -20,12 +20,12 @@ const symbol_colors = {
 }
 
 var symbol_img = {
-	Symbols.TRIANGLE: "res://Assets/PNG/Tiles green/tileGreen_31.png",
-	Symbols.SQUARE: "res://Assets/PNG/Tiles blue/tileBlue_37.png",
-	Symbols.DIAMOND: "res://Assets/PNG/Tiles red/tileRed_40.png",
-	Symbols.PENTAGON: "res://Assets/PNG/Tiles orange/tileOrange_40.png",
-	Symbols.STAR: "res://Assets/PNG/Tiles yellow/tileYellow_45.png",
-	Symbols.CIRCLE: "res://Assets/PNG/Tiles black/tileBlack_47.png"
+	Symbols.TRIANGLE: "res://Assets/gems/triangle_v1.png",
+	Symbols.SQUARE: "res://Assets/gems/square_v1.png",
+	Symbols.DIAMOND: "res://Assets/gems/diamond_v1.png",
+	Symbols.PENTAGON: "res://Assets/gems/pentagon_v1.png",
+	Symbols.STAR: "res://Assets/gems/star_v1.png",
+	Symbols.CIRCLE: "res://Assets/gems/circle_v1.png"
 }
 
 var symbol = Symbols.SQUARE
