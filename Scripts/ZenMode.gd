@@ -38,3 +38,33 @@ func _on_CloseMenu_button_up():
 func _on_Quit_button_down():
 	get_tree().change_scene("res://Scenes/Start.tscn")
 	pass # replace with function body
+
+
+func _on_SoundButton_button_down():
+	$CanvasLayer/SoundOptions.popup()
+	pass # replace with function body
+
+
+func _on_CloseSoundMenu_button_down():
+	$CanvasLayer/SoundOptions.hide()
+	pass # replace with function body
+
+
+func _on_SoundOptions_change_music_volume(ratio):
+	#note: -60 is the limit of human hearing (maybe?) so it's our min value
+	#note: 0 is the max volume before distortion
+	if ratio <= 0:
+		$BGM.volume_db = -80 #lowest decibel value allowed
+		return
+
+	var decibels = (1-ratio) * -25
+	$BGM.volume_db = decibels
+
+
+func _on_SoundOptions_change_SFX_volume(ratio):
+	for stream in get_tree().get_nodes_in_group("sfx_streams"):
+		if ratio <= 0:
+			stream.volume_db = -80 #lowest decibel value allowed
+		else:
+			var decibels = (1-ratio) * -60
+			stream.volume_db = decibels

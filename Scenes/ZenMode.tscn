@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/ZenMode.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
@@ -6,15 +6,18 @@
 [ext_resource path="res://Assets/backgrounds/manuel-will-156344-unsplash.jpg" type="Texture" id=4]
 [ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=5]
 [ext_resource path="res://DynamicFonts/Button.tres" type="DynamicFont" id=6]
-[ext_resource path="res://Fonts/SCRIPTIN.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://DynamicFonts/Score.tres" type="DynamicFont" id=8]
-[ext_resource path="res://Assets/Music/346106__strangeacoustics__palm-trees-in-the-wind.ogg" type="AudioStream" id=9]
-[ext_resource path="res://Assets/sfx/NFF-money.wav" type="AudioStream" id=10]
-[ext_resource path="res://Scripts/GeneralSFX.gd" type="Script" id=11]
-[ext_resource path="res://Assets/sfx/NFF-click-switch.wav" type="AudioStream" id=12]
-[ext_resource path="res://Scripts/SwapSFX.gd" type="Script" id=13]
+[ext_resource path="res://Scenes/Options.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Fonts/SCRIPTIN.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://Fonts/Now-Thin.otf" type="DynamicFontData" id=9]
+[ext_resource path="res://Assets/ui/cog-white.png" type="Texture" id=10]
+[ext_resource path="res://DynamicFonts/Score.tres" type="DynamicFont" id=11]
+[ext_resource path="res://Assets/Music/346106__strangeacoustics__palm-trees-in-the-wind.ogg" type="AudioStream" id=12]
+[ext_resource path="res://Assets/sfx/NFF-money.wav" type="AudioStream" id=13]
+[ext_resource path="res://Scripts/GeneralSFX.gd" type="Script" id=14]
+[ext_resource path="res://Assets/sfx/NFF-click-switch.wav" type="AudioStream" id=15]
+[ext_resource path="res://Scripts/SwapSFX.gd" type="Script" id=16]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=3]
 
 size = 30
 use_mipmaps = false
@@ -22,7 +25,7 @@ use_filter = false
 font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=4]
 
 resource_name = "Breathing"
 length = 12.0
@@ -41,19 +44,26 @@ tracks/0/keys = {
 "values": [ Color( 0.14902, 0.14902, 0.14902, 0.751373 ), Color( 0.1875, 0.1875, 0.1875, 0.74902 ) ]
 }
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=5]
 
 size = 40
 use_mipmaps = true
 use_filter = true
 extra_spacing_top = -30
 extra_spacing_bottom = -20
-font_data = ExtResource( 7 )
+font_data = ExtResource( 8 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="DynamicFont" id=2]
 
-resource_name = "FadeIn"
+size = 40
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 9 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[sub_resource type="Animation" id=6]
+
 length = 6.0
 loop = false
 step = 0.1
@@ -127,7 +137,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "Event: ????  Speed: ??"
 align = 2
 percent_visible = 1.0
@@ -176,11 +186,12 @@ autoplay = "Breathing"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Breathing = SubResource( 2 )
+anims/Breathing = SubResource( 4 )
 blend_times = [  ]
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" index="3"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -268,8 +279,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 257.0
-margin_bottom = 201.0
+margin_right = 481.0
+margin_bottom = 143.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -293,9 +304,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 205.0
-margin_right = 257.0
-margin_bottom = 406.0
+margin_top = 147.0
+margin_right = 481.0
+margin_bottom = 290.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -338,7 +349,11 @@ text = "X"
 flat = true
 align = 1
 
-[node name="Button" type="Button" parent="CanvasLayer" index="5"]
+[node name="SoundOptions" parent="CanvasLayer" index="5" instance=ExtResource( 7 )]
+
+visible = false
+
+[node name="Button" type="Button" parent="CanvasLayer" index="6"]
 
 visible = false
 anchor_left = 1.0
@@ -356,7 +371,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -367,7 +382,36 @@ clip_text = true
 align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer" index="6"]
+[node name="SoundButton" type="Button" parent="CanvasLayer" index="7"]
+
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -130.0
+margin_top = -110.0
+margin_right = 26.0
+margin_bottom = 39.0
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+icon = ExtResource( 10 )
+flat = true
+clip_text = true
+align = 1
+_sections_unfolded = [ "Rect", "custom_fonts" ]
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer" index="8"]
 
 anchor_left = 0.0
 anchor_top = 0.5
@@ -381,7 +425,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 8 )
+custom_fonts/font = ExtResource( 11 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_constants/shadow_as_outline = 20
 text = "0"
@@ -391,8 +435,11 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Theme", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="FadeSceneIn" type="ColorRect" parent="CanvasLayer" index="7"]
+[node name="FadeSceneIn" type="ColorRect" parent="CanvasLayer" index="9"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -407,6 +454,9 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 color = Color( 0.14902, 0.14902, 0.14902, 0 )
 _sections_unfolded = [ "Mouse", "Visibility" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/FadeSceneIn" index="0"]
 
@@ -415,37 +465,41 @@ autoplay = "FadeIn"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/FadeIn = SubResource( 4 )
+anims/FadeIn = SubResource( 6 )
 blend_times = [  ]
 
 [node name="BGM" type="AudioStreamPlayer" parent="." index="2"]
 
-stream = ExtResource( 9 )
+stream = ExtResource( 12 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true
 mix_target = 0
 bus = "Master"
 
-[node name="GeneralSFX" type="AudioStreamPlayer" parent="." index="3"]
+[node name="GeneralSFX" type="AudioStreamPlayer" parent="." index="3" groups=[
+"sfx_streams",
+]]
 
-stream = ExtResource( 10 )
+stream = ExtResource( 13 )
 volume_db = -30.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
-script = ExtResource( 11 )
+script = ExtResource( 14 )
 
-[node name="SwapSFX" type="AudioStreamPlayer" parent="." index="4"]
+[node name="SwapSFX" type="AudioStreamPlayer" parent="." index="4" groups=[
+"sfx_streams",
+]]
 
-stream = ExtResource( 12 )
+stream = ExtResource( 15 )
 volume_db = -30.0
 pitch_scale = 0.8
 autoplay = false
 mix_target = 0
 bus = "Master"
-script = ExtResource( 13 )
+script = ExtResource( 16 )
 
 [connection signal="swap_executed" from="CanvasLayer/CenterContainer/Board" to="SwapSFX" method="_on_Board_swap_executed"]
 
@@ -453,6 +507,12 @@ script = ExtResource( 13 )
 
 [connection signal="button_up" from="CanvasLayer/PopupPanel/CloseMenu" to="." method="_on_CloseMenu_button_up"]
 
+[connection signal="change_SFX_volume" from="CanvasLayer/SoundOptions" to="." method="_on_SoundOptions_change_SFX_volume"]
+
+[connection signal="change_music_volume" from="CanvasLayer/SoundOptions" to="." method="_on_SoundOptions_change_music_volume"]
+
 [connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_Button_button_down"]
+
+[connection signal="button_down" from="CanvasLayer/SoundButton" to="." method="_on_SoundButton_button_down"]
 
 
