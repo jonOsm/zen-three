@@ -29,6 +29,7 @@ var animating = false
 onready var DEBUG_LABEL = Game.DEBUG_LABEL
 signal refill_sockets
 signal match_resolved
+signal swap_executed
 var tracking_score = false
 var regeneration_complete = false
 
@@ -96,22 +97,15 @@ func any_gems_animating():
 	return false
 	
 func execute_swap(swap_start_socket, swap_end_socket, swap_direction):
-	print("executing swap")
 	var start_socket = get_children()[swap_start_socket]
 	var target_socket = get_children()[swap_end_socket]
 	var gem_at_target = target_socket.gem
 	var gem_here = start_socket.gem
 	
-#	start_socket.remove_child(start_socket.gem)
-#	target_socket.remove_child(target_socket.gem)
+	emit_signal("swap_executed")
 	start_socket.handle_swap(swap_direction, target_socket.gem.symbol)
 	target_socket.handle_swap(swap_direction, start_socket.gem.symbol, true)
-	
-#
-#	start_socket.add_child(gem_at_target)
-#	target_socket.add_child(gem_here)
-#	target_socket.gem = gem_here
-#	start_socket.gem = gem_at_target
+
 	
 func resolve_matches(delta):
 	
@@ -179,7 +173,7 @@ func find_all_matches():
 func find_matches(start_index, symbol):
 	var sockets_snapshot = get_children()
 	var consecutive_up_matches = []
-	for up in range(start_index-board_width, 0, -board_width):
+	for up in range(start_index-board_width, -1, -board_width):
 		if sockets_snapshot[up].gem.symbol == symbol:
 			consecutive_up_matches.append(up)
 		else:
