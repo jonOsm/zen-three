@@ -1,23 +1,22 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/ZenMode.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scripts/DebugLabel.gd" type="Script" id=3]
 [ext_resource path="res://Assets/backgrounds/manuel-will-156344-unsplash.jpg" type="Texture" id=4]
 [ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=5]
-[ext_resource path="res://DynamicFonts/Button.tres" type="DynamicFont" id=6]
-[ext_resource path="res://Scenes/Options.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Fonts/SCRIPTIN.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://Fonts/Now-Thin.otf" type="DynamicFontData" id=9]
-[ext_resource path="res://Assets/ui/cog-white.png" type="Texture" id=10]
-[ext_resource path="res://Scenes/ScoreLabel.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Assets/Music/346106__strangeacoustics__palm-trees-in-the-wind.ogg" type="AudioStream" id=12]
-[ext_resource path="res://Assets/sfx/NFF-money.wav" type="AudioStream" id=13]
-[ext_resource path="res://Scripts/GeneralSFX.gd" type="Script" id=14]
-[ext_resource path="res://Assets/sfx/NFF-click-switch.wav" type="AudioStream" id=15]
-[ext_resource path="res://Scripts/SwapSFX.gd" type="Script" id=16]
+[ext_resource path="res://Scenes/Options.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Fonts/Now-Thin.otf" type="DynamicFontData" id=7]
+[ext_resource path="res://Assets/ui/cog-white.png" type="Texture" id=8]
+[ext_resource path="res://Assets/ui/baseline_cached_white_48.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/ScoreLabel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/Music/346106__strangeacoustics__palm-trees-in-the-wind.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Assets/sfx/NFF-money.wav" type="AudioStream" id=12]
+[ext_resource path="res://Scripts/GeneralSFX.gd" type="Script" id=13]
+[ext_resource path="res://Assets/sfx/NFF-click-switch.wav" type="AudioStream" id=14]
+[ext_resource path="res://Scripts/SwapSFX.gd" type="Script" id=15]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 
 size = 30
 use_mipmaps = false
@@ -25,7 +24,7 @@ use_filter = false
 font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 
 resource_name = "Breathing"
 length = 12.0
@@ -44,25 +43,15 @@ tracks/0/keys = {
 "values": [ Color( 0.14902, 0.14902, 0.14902, 0.751373 ), Color( 0.1875, 0.1875, 0.1875, 0.74902 ) ]
 }
 
-[sub_resource type="DynamicFont" id=5]
-
-size = 40
-use_mipmaps = true
-use_filter = true
-extra_spacing_top = -30
-extra_spacing_bottom = -20
-font_data = ExtResource( 8 )
-_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
-
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=4]
 
 size = 40
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 9 )
+font_data = ExtResource( 7 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 
 length = 6.0
 loop = false
@@ -80,7 +69,7 @@ tracks/0/keys = {
 "values": [ Color( 0.14902, 0.14902, 0.14902, 1 ), Color( 0.14902, 0.14902, 0.14902, 1 ), Color( 0.14902, 0.14902, 0.14902, 0 ) ]
 }
 
-[node name="ZenMode" type="Node2D"]
+[node name="ZenMode" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -137,7 +126,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "Event: ????  Speed: ??"
 align = 2
 percent_visible = 1.0
@@ -186,7 +175,7 @@ autoplay = "Breathing"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Breathing = SubResource( 4 )
+anims/Breathing = SubResource( 2 )
 blend_times = [  ]
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" index="3"]
@@ -224,196 +213,85 @@ _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Mouse", "Rect", "S
 board_width = 6
 board_height = 9
 
-[node name="PopupPanel" type="PopupPanel" parent="CanvasLayer" index="4"]
-
-editor/display_folded = true
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-popup_exclusive = false
-_sections_unfolded = [ "Popup" ]
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/PopupPanel" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-use_top_left = false
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PopupPanel/CenterContainer" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 119.0
-margin_top = 595.0
-margin_right = 600.0
-margin_bottom = 885.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-alignment = 0
-
-[node name="Options" type="Button" parent="CanvasLayer/PopupPanel/CenterContainer/VBoxContainer" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 481.0
-margin_bottom = 143.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_fonts/font = ExtResource( 6 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Options"
-flat = true
-align = 1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="Quit" type="Button" parent="CanvasLayer/PopupPanel/CenterContainer/VBoxContainer" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 147.0
-margin_right = 481.0
-margin_bottom = 290.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_fonts/font = ExtResource( 6 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Quit"
-flat = true
-align = 1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="CloseMenu" type="Button" parent="CanvasLayer/PopupPanel" index="1"]
-
-anchor_left = 1.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-margin_left = -50.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "X"
-flat = true
-align = 1
-
-[node name="Options" parent="CanvasLayer" index="5" instance=ExtResource( 7 )]
+[node name="Options" parent="CanvasLayer" index="4" instance=ExtResource( 6 )]
 
 visible = false
 
-[node name="Button" type="Button" parent="CanvasLayer" index="6"]
+[node name="Buttons" type="Control" parent="CanvasLayer" index="5"]
 
-visible = false
-anchor_left = 1.0
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -240.0
-margin_top = -90.0
-margin_right = -20.0
-margin_bottom = -17.0
+margin_left = -360.0
+margin_top = -180.0
+margin_right = 360.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 5 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Menu"
-flat = false
-clip_text = true
-align = 1
-_sections_unfolded = [ "custom_fonts" ]
 
-[node name="SoundButton" type="Button" parent="CanvasLayer" index="7"]
+[node name="OptionsButton" type="Button" parent="CanvasLayer/Buttons" index="0"]
 
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -130.0
-margin_top = -110.0
-margin_right = 26.0
-margin_bottom = 39.0
+margin_left = -150.0
+margin_top = -120.0
+margin_right = 6.0
+margin_bottom = 29.0
 rect_scale = Vector2( 0.5, 0.5 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 toggle_mode = false
-enabled_focus_mode = 2
+enabled_focus_mode = 0
 shortcut = null
 group = null
-icon = ExtResource( 10 )
+icon = ExtResource( 8 )
 flat = true
 clip_text = true
 align = 1
-_sections_unfolded = [ "Rect", "custom_fonts" ]
+_sections_unfolded = [ "Theme", "custom_fonts" ]
 
-[node name="ScoreLabel" parent="CanvasLayer" index="8" instance=ExtResource( 11 )]
+[node name="RefreshButton" type="Button" parent="CanvasLayer/Buttons" index="1"]
 
-[node name="FadeSceneIn" type="ColorRect" parent="CanvasLayer" index="9"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -270.0
+margin_top = -130.0
+margin_right = -114.0
+margin_bottom = 20.0
+rect_scale = Vector2( 0.6, 0.6 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 4 )
+toggle_mode = false
+enabled_focus_mode = 0
+shortcut = null
+group = null
+icon = ExtResource( 9 )
+flat = true
+clip_text = true
+align = 1
+_sections_unfolded = [ "Rect", "Theme", "custom_fonts" ]
+
+[node name="ScoreLabel" parent="CanvasLayer" index="6" instance=ExtResource( 10 )]
+
+[node name="FadeSceneIn" type="ColorRect" parent="CanvasLayer" index="7"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -439,12 +317,12 @@ autoplay = "FadeIn"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/FadeIn = SubResource( 6 )
+anims/FadeIn = SubResource( 5 )
 blend_times = [  ]
 
 [node name="BGM" type="AudioStreamPlayer" parent="." index="2"]
 
-stream = ExtResource( 12 )
+stream = ExtResource( 11 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true
@@ -455,38 +333,34 @@ bus = "Master"
 "sfx_streams",
 ]]
 
-stream = ExtResource( 13 )
+stream = ExtResource( 12 )
 volume_db = -30.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
-script = ExtResource( 14 )
+script = ExtResource( 13 )
 
 [node name="SwapSFX" type="AudioStreamPlayer" parent="." index="4" groups=[
 "sfx_streams",
 ]]
 
-stream = ExtResource( 15 )
+stream = ExtResource( 14 )
 volume_db = -30.0
 pitch_scale = 0.8
 autoplay = false
 mix_target = 0
 bus = "Master"
-script = ExtResource( 16 )
+script = ExtResource( 15 )
 
 [connection signal="swap_executed" from="CanvasLayer/CenterContainer/Board" to="SwapSFX" method="_on_Board_swap_executed"]
-
-[connection signal="button_down" from="CanvasLayer/PopupPanel/CenterContainer/VBoxContainer/Quit" to="." method="_on_Quit_button_down"]
-
-[connection signal="button_up" from="CanvasLayer/PopupPanel/CloseMenu" to="." method="_on_CloseMenu_button_up"]
 
 [connection signal="change_SFX_volume" from="CanvasLayer/Options" to="." method="_on_SoundOptions_change_SFX_volume"]
 
 [connection signal="change_music_volume" from="CanvasLayer/Options" to="." method="_on_SoundOptions_change_music_volume"]
 
-[connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_Button_button_down"]
+[connection signal="button_down" from="CanvasLayer/Buttons/OptionsButton" to="." method="_on_OptionsButton_button_down"]
 
-[connection signal="button_down" from="CanvasLayer/SoundButton" to="." method="_on_SoundButton_button_down"]
+[connection signal="button_down" from="CanvasLayer/Buttons/RefreshButton" to="CanvasLayer/CenterContainer/Board" method="_on_RefreshButton_button_down"]
 
 

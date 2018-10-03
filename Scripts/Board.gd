@@ -213,3 +213,8 @@ func find_matches(start_index, symbol):
 	
 	return vertical_matches
 	#return max of vertical or horizontal matches
+
+func _on_RefreshButton_button_down():
+	tracking_score = false
+	regenerate_board()
+	

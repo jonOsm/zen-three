@@ -29,27 +29,11 @@ func update_score(match_magnitude):
 func _on_Button_button_down():
 	$CanvasLayer/PopupPanel.popup()
 	menu_open = true
-	
-
 
 func _on_CloseMenu_button_up():
 	print("running?")
 	$CanvasLayer/PopupPanel.hide()
 	menu_open = false
-
-func _on_Quit_button_down():
-	get_tree().change_scene("res://Scenes/Start.tscn")
-	pass # replace with function body
-
-
-func _on_SoundButton_button_down():
-	$CanvasLayer/Options.popup()
-	pass # replace with function body
-
-
-func _on_CloseSoundMenu_button_down():
-	$CanvasLayer/Options.hide()
-	pass # replace with function body
 
 
 func _on_SoundOptions_change_music_volume(ratio):
@@ -69,3 +53,6 @@ func _on_SoundOptions_change_SFX_volume(ratio):
 		else:
 			var decibels = (1-ratio) * -60
 			stream.volume_db = decibels
+
+func _on_OptionsButton_button_down():
+	$CanvasLayer/Options.popup()
