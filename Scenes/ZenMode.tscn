@@ -10,7 +10,7 @@
 [ext_resource path="res://Fonts/SCRIPTIN.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://Fonts/Now-Thin.otf" type="DynamicFontData" id=9]
 [ext_resource path="res://Assets/ui/cog-white.png" type="Texture" id=10]
-[ext_resource path="res://DynamicFonts/Score.tres" type="DynamicFont" id=11]
+[ext_resource path="res://Scenes/ScoreLabel.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Music/346106__strangeacoustics__palm-trees-in-the-wind.ogg" type="AudioStream" id=12]
 [ext_resource path="res://Assets/sfx/NFF-money.wav" type="AudioStream" id=13]
 [ext_resource path="res://Scripts/GeneralSFX.gd" type="Script" id=14]
@@ -80,7 +80,7 @@ tracks/0/keys = {
 "values": [ Color( 0.14902, 0.14902, 0.14902, 1 ), Color( 0.14902, 0.14902, 0.14902, 1 ), Color( 0.14902, 0.14902, 0.14902, 0 ) ]
 }
 
-[node name="ZenMode" type="Node2D" index="0"]
+[node name="ZenMode" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -349,7 +349,7 @@ text = "X"
 flat = true
 align = 1
 
-[node name="SoundOptions" parent="CanvasLayer" index="5" instance=ExtResource( 7 )]
+[node name="Options" parent="CanvasLayer" index="5" instance=ExtResource( 7 )]
 
 visible = false
 
@@ -411,33 +411,7 @@ clip_text = true
 align = 1
 _sections_unfolded = [ "Rect", "custom_fonts" ]
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer" index="8"]
-
-anchor_left = 0.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -640.0
-margin_bottom = -503.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 11 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_constants/shadow_as_outline = 20
-text = "0"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Theme", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="ScoreLabel" parent="CanvasLayer" index="8" instance=ExtResource( 11 )]
 
 [node name="FadeSceneIn" type="ColorRect" parent="CanvasLayer" index="9"]
 
@@ -507,9 +481,9 @@ script = ExtResource( 16 )
 
 [connection signal="button_up" from="CanvasLayer/PopupPanel/CloseMenu" to="." method="_on_CloseMenu_button_up"]
 
-[connection signal="change_SFX_volume" from="CanvasLayer/SoundOptions" to="." method="_on_SoundOptions_change_SFX_volume"]
+[connection signal="change_SFX_volume" from="CanvasLayer/Options" to="." method="_on_SoundOptions_change_SFX_volume"]
 
-[connection signal="change_music_volume" from="CanvasLayer/SoundOptions" to="." method="_on_SoundOptions_change_music_volume"]
+[connection signal="change_music_volume" from="CanvasLayer/Options" to="." method="_on_SoundOptions_change_music_volume"]
 
 [connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_Button_button_down"]
 

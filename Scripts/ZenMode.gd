@@ -2,14 +2,16 @@ extends Node2D
 	
 var menu_open = false
 onready var board = $CanvasLayer/CenterContainer/Board
-onready var score_label = $CanvasLayer/ScoreLabel
+var score_label #can't use onready since 
 onready var sfx_player = $GeneralSFX
 export (float) var default_pitch = 0.7
 var score = 0
 
 func _ready():
+	#Game.load_game()
 	board.connect("match_resolved", self, "on_Match_Resolved")
-
+	score_label = $CanvasLayer/ScoreLabel
+	
 func on_Match_Resolved(magnitude):
 	update_score(magnitude)
 	sfx_player.pitch_scale = default_pitch
@@ -20,8 +22,8 @@ func on_Match_Resolved(magnitude):
 	sfx_player.play()
 	
 func update_score(match_magnitude):
-	score += (3*pow(2,match_magnitude-3))
-	score_label.set_text(str(score))
+	var points = (3*pow(2,match_magnitude-3))
+	score_label.update_score(points)
 	
 	
 func _on_Button_button_down():
@@ -41,12 +43,12 @@ func _on_Quit_button_down():
 
 
 func _on_SoundButton_button_down():
-	$CanvasLayer/SoundOptions.popup()
+	$CanvasLayer/Options.popup()
 	pass # replace with function body
 
 
 func _on_CloseSoundMenu_button_down():
-	$CanvasLayer/SoundOptions.hide()
+	$CanvasLayer/Options.hide()
 	pass # replace with function body
 
 
@@ -59,7 +61,6 @@ func _on_SoundOptions_change_music_volume(ratio):
 
 	var decibels = (1-ratio) * -25
 	$BGM.volume_db = decibels
-
 
 func _on_SoundOptions_change_SFX_volume(ratio):
 	for stream in get_tree().get_nodes_in_group("sfx_streams"):
