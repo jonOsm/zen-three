@@ -4,7 +4,7 @@
 
 [resource]
 
-size = 60
+size = 50
 use_mipmaps = true
 use_filter = true
 extra_spacing_bottom = -10

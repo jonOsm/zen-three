@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/aaron-burden-527200-unsplash.jpg-4f40f16a64c75609802db4a38d46d026.stex"
+path="res://.import/triangle_light.png-2f3ad9935ce040901f76f6bb9bdf1dc7.stex"
 
 [deps]
 
-source_file="res://Assets/backgrounds/aaron-burden-527200-unsplash.jpg"
-dest_files=[ "res://.import/aaron-burden-527200-unsplash.jpg-4f40f16a64c75609802db4a38d46d026.stex" ]
+source_file="res://Assets/gems/triangle_light.png"
+dest_files=[ "res://.import/triangle_light.png-2f3ad9935ce040901f76f6bb9bdf1dc7.stex" ]
 
 [params]
 
@@ -25,5 +25,5 @@ process/premult_alpha=false
 process/HDR_as_SRGB=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

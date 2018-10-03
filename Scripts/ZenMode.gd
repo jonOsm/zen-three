@@ -56,3 +56,7 @@ func _on_SoundOptions_change_SFX_volume(ratio):
 
 func _on_OptionsButton_button_down():
 	$CanvasLayer/Options.popup()
+
+
+func _on_HelpButton_button_down():
+	$CanvasLayer/Help.popup()

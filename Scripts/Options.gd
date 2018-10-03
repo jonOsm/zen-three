@@ -33,10 +33,6 @@ func update_SFX_volume():
 	$SFXControls/SFXVolumeLabel.text = str(sfx_volume)
 	emit_signal("change_SFX_volume", ratio)
 
-func _on_Quit_button_down():
-	Game.save_game()
-	hide()
-
 func save():
 	var save_dict = {
 		"name": name,
@@ -46,3 +42,7 @@ func save():
 		}
 	}
 	return save_dict
+
+func _on_Back_pressed():
+	Game.save_game()
+	hide()
