@@ -9,12 +9,12 @@ var sfx_volume = 50
 func _ready():
 	var state = Game.get_state_from_savefile(name)
 	for prop in state:
-		set(prop, state[prop])
-		$MusicControls/MusicVolumeSlider.value = music_volume
-		$SFXControls/SFXVolumeSlider.value = sfx_volume
-#	update_music_volume()
-#	update_SFX_volume()
-		
+		set(prop, state[prop])	
+	update_music_volume()
+	update_SFX_volume()
+	$MusicControls/MusicVolumeSlider.value = music_volume
+	$SFXControls/SFXVolumeSlider.value = sfx_volume
+	
 func _on_MusicVolumeSlider_value_changed(value):
 	music_volume = value
 	update_music_volume()
