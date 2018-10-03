@@ -21,7 +21,6 @@ var current_gamestate = GameState.IDLE
 var DEBUG_LABEL
 var game_data
 func save_game():
-	print("save game called?")
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
 	

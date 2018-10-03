@@ -1,37 +1,23 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/ZenMode.gd" type="Script" id=1]
-[ext_resource path="res://Scripts/DebugLabel.gd" type="Script" id=2]
-[ext_resource path="res://Assets/backgrounds/manuel-will-156344-unsplash.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scripts/Help.gd" type="Script" id=5]
-[ext_resource path="res://DynamicFonts/Button.tres" type="DynamicFont" id=6]
-[ext_resource path="res://DynamicFonts/paragraph.tres" type="DynamicFont" id=7]
-[ext_resource path="res://Fonts/Now-Thin.otf" type="DynamicFontData" id=8]
-[ext_resource path="res://Scenes/Back.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/Options.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Assets/ui/cog-white.png" type="Texture" id=11]
-[ext_resource path="res://Assets/ui/baseline_cached_white_48.png" type="Texture" id=12]
-[ext_resource path="res://Assets/ui/baseline_help_outline_white_48.png" type="Texture" id=13]
-[ext_resource path="res://Scenes/ScoreLabel.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Assets/Music/346106__strangeacoustics__palm-trees-in-the-wind_short_fade.ogg" type="AudioStream" id=15]
-[ext_resource path="res://Assets/sfx/NFF-money.wav" type="AudioStream" id=16]
-[ext_resource path="res://Scripts/GeneralSFX.gd" type="Script" id=17]
-[ext_resource path="res://Assets/sfx/NFF-click-switch.wav" type="AudioStream" id=18]
-[ext_resource path="res://Scripts/SwapSFX.gd" type="Script" id=19]
-
-[sub_resource type="DynamicFontData" id=1]
-
-hinting = 2
-font_path = "res://Fonts/Roboto-Regular.ttf"
-
-[sub_resource type="DynamicFont" id=2]
-
-size = 30
-use_mipmaps = false
-use_filter = false
-font_data = SubResource( 1 )
-_sections_unfolded = [ "Font", "Settings" ]
+[ext_resource path="res://Assets/backgrounds/manuel-will-156344-unsplash.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Help.gd" type="Script" id=4]
+[ext_resource path="res://DynamicFonts/Button.tres" type="DynamicFont" id=5]
+[ext_resource path="res://DynamicFonts/paragraph.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Fonts/Now-Thin.otf" type="DynamicFontData" id=7]
+[ext_resource path="res://Scenes/Back.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Options.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/ui/cog-white.png" type="Texture" id=10]
+[ext_resource path="res://Assets/ui/baseline_cached_white_48.png" type="Texture" id=11]
+[ext_resource path="res://Assets/ui/baseline_help_outline_white_48.png" type="Texture" id=12]
+[ext_resource path="res://Scenes/ScoreLabel.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/Music/346106__strangeacoustics__palm-trees-in-the-wind_short_fade.ogg" type="AudioStream" id=14]
+[ext_resource path="res://Assets/sfx/NFF-money.wav" type="AudioStream" id=15]
+[ext_resource path="res://Scripts/GeneralSFX.gd" type="Script" id=16]
+[ext_resource path="res://Assets/sfx/NFF-click-switch.wav" type="AudioStream" id=17]
+[ext_resource path="res://Scripts/SwapSFX.gd" type="Script" id=18]
 
 [sub_resource type="Animation" id=3]
 
@@ -57,7 +43,7 @@ size = 35
 use_mipmaps = true
 use_filter = true
 extra_spacing_bottom = -10
-font_data = ExtResource( 8 )
+font_data = ExtResource( 7 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=5]
@@ -65,7 +51,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 size = 40
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 8 )
+font_data = ExtResource( 7 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="Animation" id=6]
@@ -86,40 +72,13 @@ tracks/0/keys = {
 "values": [ Color( 0.14902, 0.14902, 0.14902, 1 ), Color( 0.14902, 0.14902, 0.14902, 1 ), Color( 0.14902, 0.14902, 0.14902, 0 ) ]
 }
 
-[node name="ZenMode" type="Node2D" index="0"]
+[node name="ZenMode" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 default_pitch = 0.7
 
-[node name="Camera2D" type="Camera2D" parent="." index="0"]
-
-visible = false
-anchor_mode = 1
-rotating = false
-current = true
-zoom = Vector2( 2, 2 )
-limit_left = -10000000
-limit_top = -10000000
-limit_right = 10000000
-limit_bottom = 10000000
-limit_smoothed = false
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = false
-smoothing_speed = 5.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
-_sections_unfolded = [ "Transform" ]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="1"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -127,32 +86,7 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="DebugLabel" type="Label" parent="CanvasLayer" index="0"]
-
-anchor_left = 1.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-margin_left = -680.0
-margin_top = 10.0
-margin_right = -41.0
-margin_bottom = 89.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = SubResource( 2 )
-text = "Event: ????  Speed: ??"
-align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-script = ExtResource( 2 )
-_sections_unfolded = [ "Focus", "Grow Direction", "Hint", "Mouse", "Rect", "Size Flags", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" index="1"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -164,12 +98,12 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 expand = true
 stretch_mode = 7
 _sections_unfolded = [ "Grow Direction", "Margin" ]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" index="2"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" index="1"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -195,9 +129,8 @@ playback_speed = 1.0
 anims/Breathing = SubResource( 3 )
 blend_times = [  ]
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" index="3"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" index="2"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -213,7 +146,7 @@ size_flags_vertical = 1
 use_top_left = false
 _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Mouse", "Rect", "Size Flags" ]
 
-[node name="Board" parent="CanvasLayer/CenterContainer" index="0" instance=ExtResource( 4 )]
+[node name="Board" parent="CanvasLayer/CenterContainer" index="0" instance=ExtResource( 3 )]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -230,8 +163,9 @@ _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Mouse", "Rect", "S
 board_width = 6
 board_height = 9
 
-[node name="Help" type="PopupPanel" parent="CanvasLayer" index="4"]
+[node name="Help" type="PopupPanel" parent="CanvasLayer" index="3"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -244,7 +178,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 popup_exclusive = false
-script = ExtResource( 5 )
+script = ExtResource( 4 )
 
 [node name="Title" type="Label" parent="CanvasLayer/Help" index="0"]
 
@@ -262,7 +196,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 5 )
 text = "Help"
 align = 1
 percent_visible = 1.0
@@ -286,7 +220,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 5 )
 text = "Credits"
 align = 1
 percent_visible = 1.0
@@ -310,7 +244,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 7 )
+custom_fonts/font = ExtResource( 6 )
 text = "Relax. Calm your mind. If you're feeling up to it, swipe shapes to match 3 or more in a row.
 "
 autowrap = true
@@ -389,15 +323,14 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "Anchor", "BBCode", "custom_fonts" ]
 
-[node name="Back" parent="CanvasLayer/Help" index="4" instance=ExtResource( 9 )]
+[node name="Back" parent="CanvasLayer/Help" index="4" instance=ExtResource( 8 )]
 
-[node name="Options" parent="CanvasLayer" index="5" instance=ExtResource( 10 )]
+[node name="Options" parent="CanvasLayer" index="4" instance=ExtResource( 9 )]
 
 visible = false
 
-[node name="Buttons" type="Control" parent="CanvasLayer" index="6"]
+[node name="Buttons" type="Control" parent="CanvasLayer" index="5"]
 
-editor/display_folded = true
 modulate = Color( 1, 1, 1, 0.486196 )
 anchor_left = 0.5
 anchor_top = 1.0
@@ -436,7 +369,7 @@ toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
 group = null
-icon = ExtResource( 11 )
+icon = ExtResource( 10 )
 flat = true
 clip_text = true
 align = 1
@@ -464,7 +397,7 @@ toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
 group = null
-icon = ExtResource( 12 )
+icon = ExtResource( 11 )
 flat = true
 clip_text = true
 align = 1
@@ -492,15 +425,15 @@ toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
 group = null
-icon = ExtResource( 13 )
+icon = ExtResource( 12 )
 flat = true
 clip_text = true
 align = 1
 _sections_unfolded = [ "Rect", "Theme", "custom_fonts" ]
 
-[node name="ScoreLabel" parent="CanvasLayer" index="7" instance=ExtResource( 14 )]
+[node name="ScoreLabel" parent="CanvasLayer" index="6" instance=ExtResource( 13 )]
 
-[node name="FadeSceneIn" type="ColorRect" parent="CanvasLayer" index="8"]
+[node name="FadeSceneIn" type="ColorRect" parent="CanvasLayer" index="7"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -529,38 +462,38 @@ playback_speed = 1.0
 anims/FadeIn = SubResource( 6 )
 blend_times = [  ]
 
-[node name="BGM" type="AudioStreamPlayer" parent="." index="2"]
+[node name="BGM" type="AudioStreamPlayer" parent="." index="1"]
 
-stream = ExtResource( 15 )
+stream = ExtResource( 14 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true
 mix_target = 0
 bus = "Master"
 
-[node name="GeneralSFX" type="AudioStreamPlayer" parent="." index="3" groups=[
+[node name="GeneralSFX" type="AudioStreamPlayer" parent="." index="2" groups=[
 "sfx_streams",
 ]]
 
-stream = ExtResource( 16 )
+stream = ExtResource( 15 )
 volume_db = -30.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
-script = ExtResource( 17 )
+script = ExtResource( 16 )
 
-[node name="SwapSFX" type="AudioStreamPlayer" parent="." index="4" groups=[
+[node name="SwapSFX" type="AudioStreamPlayer" parent="." index="3" groups=[
 "sfx_streams",
 ]]
 
-stream = ExtResource( 18 )
+stream = ExtResource( 17 )
 volume_db = -30.0
 pitch_scale = 0.8
 autoplay = false
 mix_target = 0
 bus = "Master"
-script = ExtResource( 19 )
+script = ExtResource( 18 )
 
 [connection signal="swap_executed" from="CanvasLayer/CenterContainer/Board" to="SwapSFX" method="_on_Board_swap_executed"]
 

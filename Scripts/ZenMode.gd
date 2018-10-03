@@ -8,7 +8,6 @@ export (float) var default_pitch = 0.7
 var score = 0
 
 func _ready():
-	#Game.load_game()
 	board.connect("match_resolved", self, "on_Match_Resolved")
 	score_label = $CanvasLayer/ScoreLabel
 	
@@ -31,7 +30,6 @@ func _on_Button_button_down():
 	menu_open = true
 
 func _on_CloseMenu_button_up():
-	print("running?")
 	$CanvasLayer/PopupPanel.hide()
 	menu_open = false
 

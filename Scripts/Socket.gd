@@ -80,7 +80,7 @@ func handle_swap(direction, replacement_symbol, reverse_direction = false):
 	
 	
 func generate_gem():
-	#print(get_child(0).name)
+	
 	if not gem:
 		gem = gem_preload.instance()
 		gem.rect_min_size = Vector2(0,0)

@@ -82,7 +82,6 @@ func _process(delta):
 			find_all_matches()
 			play_state = RESOLVING_MATCHES
 		RESOLVING_MATCHES:
-			print(queued_matches)
 			if queued_matches.size() > 0:
 				resolve_matches(delta)
 				play_state = GENERATING
@@ -138,7 +137,6 @@ func queue_matches(start_socket_index, target_socket_index):
 	#matching logic done here
 	#do this before even swaping?
 	
-	print("check for match called")
 	#get all the children of board
 	var all_sockets = get_children()
 	
@@ -191,10 +189,9 @@ func find_matches(start_index, symbol):
 	var consecutive_left_matches = []
 	var final_left_index = start_index - (start_index % board_width)
 	for left in range(start_index-1, final_left_index-1, -1):
-		#print("current symbol: " + str(symbol) + ", up symbol: " + str(sockets_snapshot[up].get_node("Gem").symbol))
+		
 		if sockets_snapshot[left].gem.symbol == symbol:
 			consecutive_left_matches.append(left)
-			#print("up found")
 		else:
 			break #we don't want to keep checking, matches MUST be consecutive
 	
